@@ -124,6 +124,8 @@ alias l1="ls -1"
 # tree
 alias tree="tree -NC" # N: 文字化け対策, C:色をつける
 
+alias tmux="tmux -2"
+alias j="autojump"
 # -------------------------------------
 # # キーバインド
 # # -------------------------------------
@@ -162,8 +164,8 @@ bindkey "^N" history-beginning-search-forward-end
 # 補完候補を詰めて表示する
 setopt list_packed 
 
-alias j="autojump"
 if [ -f `brew --prefix`/etc/autojump ]; then
 	  . `brew --prefix`/etc/autojump
 fi
 nvm alias default v0.11.9
+# if [ "$TMUX" = "" ]; then tmux; fi 
