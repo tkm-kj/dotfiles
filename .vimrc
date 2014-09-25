@@ -59,14 +59,15 @@ endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 "コピーで常にヤンクしたものを貼り付けられる
-nnoremap p "*p
+nnoremap p "0p
 ""直近にデリートした行をペーストする
 nnoremap dp "1p
 "コピーで常にヤンクしたものを貼り付けられる
-nnoremap P "*P
+nnoremap P "0P
 ""直近にデリートした単語をペーストする
 nnoremap dP "1P
-
+"タイポ防止
+nnoremap - ^
 let loaded_matchparen = 1 "対応カッコの強調表示解除
 let g:syntastic_enable_signs=1 "syntastic入れるのに必要
 let g:syntastic_auto_loc_list=2 "syntastic入れるのに必要

@@ -112,20 +112,14 @@ RPROMPT="[%*]"
 # # エイリアス
 # # -------------------------------------
 
-# -n 行数表示, -I バイナリファイル無視, svn関係のファイルを無視
-alias grep="grep --color -n -I --exclude='*.svn-*' --exclude='entries' --exclude='*/cache/*'"
-
 # ls
-alias ls="ls -G" # color for darwin
-alias l="ls -la"
-alias la="ls -la"
-alias l1="ls -1"
+alias ll="ls -l"
 
 # tree
 alias tree="tree -NC" # N: 文字化け対策, C:色をつける
 
-alias tmux="tmux -2"
-alias j="autojump"
+alias tm="tmux -2"
+alias rb="ruby"
 # -------------------------------------
 # # キーバインド
 # # -------------------------------------
