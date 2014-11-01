@@ -58,6 +58,9 @@ endif
 " NERDTreeだけの場合は勝手に閉じる
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
+nnoremap d "1d
+vnoremap d "1d
+vnoremap x "1d
 "コピーで常にヤンクしたものを貼り付けられる
 nnoremap p "0p
 ""直近にデリートした行をペーストする
