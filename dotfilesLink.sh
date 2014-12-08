@@ -6,5 +6,6 @@ do
   ln -fs $HOME/dotfiles/$file $HOME/$file
 done
 
+mkdir ~/.vim/bundle
 git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 vim -c ':NeoBundleInstall'
