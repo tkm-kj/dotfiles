@@ -120,6 +120,14 @@ alias tree="tree -NC" # N: 文字化け対策, C:色をつける
 
 alias tm="tmux -2"
 alias rb="ruby"
+alias va="vagrant"
+alias be="bundle exec"
+alias gs="git status"
+alias ga="git add"
+alias gr="git rm"
+alias gc="git commit"
+alias gp="git push"
+
 # -------------------------------------
 # # キーバインド
 # # -------------------------------------

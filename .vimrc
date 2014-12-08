@@ -2,7 +2,6 @@ set whichwrap=b,s,h,l,<,>,[,] "行を跨いで移動出来る様にする
 
 set virtualedit=block
 syntax on "シンタックスハイライトを有効にする
-set nobackup "バックアップファイルを作らない設定にする
 set encoding=utf-8 "デフォルトの文字コード
 set fileencoding=utf-8
 set smartindent "新しい行を開始した時に、新しい行のインデントを現在行と同じ量にする
@@ -25,14 +24,21 @@ set shiftwidth=2 "タブを挿入するときの幅
 set showcmd "コマンド表示
 set clipboard+=unnamed "クリップボードにコピーされる
 set nocompatible
-
+"マウス操作可能にする
+set mouse=a
+set ttymouse=xterm2
+set guioptions+=a
+set noswapfile
 "ハイライト設定
 hi MatchParen cterm=bold ctermbg=darkgray 
 colorscheme jellybeans
 
+"neobundle
 if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim
-  call neobundle#rc(expand('~/.vim/bundle'))
+  call neobundle#begin(expand('~/.vim/bundle/'))
+  NeoBundleFetch 'Shougo/neobundle.vim'
+  call neobundle#end()
 endif
 
 " ここにインストールしたいプラグインのリストを書く
@@ -47,6 +53,7 @@ NeoBundle 'Townk/vim-autoclose'
 NeoBundle 'kana/vim-smartinput'
 NeoBundle 'cohama/vim-smartinput-endwise'
 NeoBundle 'tpope/vim-surround'
+"smartinput-endwise
 call smartinput_endwise#define_default_rules() "上の呼び出し"
 filetype plugin on
 filetype indent on
@@ -58,19 +65,41 @@ endif
 " NERDTreeだけの場合は勝手に閉じる
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
+"削除
 nnoremap d "1d
 vnoremap d "1d
 vnoremap x "1d
 "コピーで常にヤンクしたものを貼り付けられる
 nnoremap p "0p
-""直近にデリートした行をペーストする
+"直近にデリートした行をペーストする
 nnoremap dp "1p
 "コピーで常にヤンクしたものを貼り付けられる
 nnoremap P "0P
-""直近にデリートした単語をペーストする
+"直近にデリートした単語をペーストする
 nnoremap dP "1P
-"タイポ防止
-nnoremap - ^
+"移動に関して
+inoremap <C-h> <Left>
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-l> <Right>
+nnoremap <C-h> ^
+nnoremap <C-l> $
+vnoremap <C-h> ^
+vnoremap <C-l> $h
+nnoremap <C-j> <C-d>
+nnoremap <C-k> <C-u>
+vnoremap <C-j> <C-d>
+vnoremap <C-k> <C-u>
+"NERDTree起動ショートカット
+nnoremap <silent> = :NERDTreeToggle<CR> 
 let loaded_matchparen = 1 "対応カッコの強調表示解除
 let g:syntastic_enable_signs=1 "syntastic入れるのに必要
 let g:syntastic_auto_loc_list=2 "syntastic入れるのに必要
+let NERDTreeShowHidden=1 "NERDTreeでdotfile表示
+"rubyのdo~end間移動を%で対応（あんまり正確じゃないっぽい）
+source $VIMRUNTIME/macros/matchit.vim
+augroup matchit
+  au!
+  au FileType ruby let b:match_words = '\<\(module\|class\|def\|begin\|do\|if\|unless\|case\)\>:\<\(elsif\|when\|rescue\)\>:\<\(else\|ensure\)\>:\<end\>'
+augroup END
+
