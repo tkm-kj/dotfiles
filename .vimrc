@@ -91,7 +91,7 @@ nnoremap <C-k> <C-u>
 vnoremap <C-j> <C-d>
 vnoremap <C-k> <C-u>
 "NERDTree起動ショートカット
-nnoremap <silent> = :NERDTreeToggle<CR> 
+nnoremap <silent> <C-@> :NERDTreeToggle<CR> 
 let loaded_matchparen = 1 "対応カッコの強調表示解除
 let g:syntastic_enable_signs=1 "syntastic入れるのに必要
 let g:syntastic_auto_loc_list=2 "syntastic入れるのに必要
