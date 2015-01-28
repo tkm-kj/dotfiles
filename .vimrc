@@ -3,7 +3,8 @@ set whichwrap=b,s,h,l,<,>,[,] "行を跨いで移動出来る様にする
 set virtualedit=block
 syntax on "シンタックスハイライトを有効にする
 set encoding=utf-8 "デフォルトの文字コード
-set fileencoding=utf-8
+set ffs=unix,dos,mac 
+" set fileencoding=utf-8
 set smartindent "新しい行を開始した時に、新しい行のインデントを現在行と同じ量にする
 set cindent "Cプログラムの自動インデント
 set wrap "検索がファイル末尾まで行ったら最初に戻る
@@ -53,6 +54,9 @@ NeoBundle 'Townk/vim-autoclose'
 NeoBundle 'kana/vim-smartinput'
 NeoBundle 'cohama/vim-smartinput-endwise'
 NeoBundle 'tpope/vim-surround'
+NeoBundle 'tmhedberg/matchit'
+NeoBundle 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
+NeoBundle 'tpope/vim-fugitive'
 "smartinput-endwise
 call smartinput_endwise#define_default_rules() "上の呼び出し"
 filetype plugin on
@@ -77,19 +81,18 @@ nnoremap dp "1p
 nnoremap P "0P
 "直近にデリートした単語をペーストする
 nnoremap dP "1P
-"移動に関して
+"通常移動に関して
 inoremap <C-h> <Left>
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-l> <Right>
-nnoremap <C-h> ^
+noremap <C-h> ^
 nnoremap <C-l> $
-vnoremap <C-h> ^
 vnoremap <C-l> $h
-nnoremap <C-j> <C-d>
-nnoremap <C-k> <C-u>
-vnoremap <C-j> <C-d>
-vnoremap <C-k> <C-u>
+noremap <C-j> <C-d>
+noremap <C-k> <C-u>
+noremap <C-w><C-g> <C-w>t
+noremap <C-w>g <C-w>t
 "NERDTree起動ショートカット
 nnoremap <silent> <C-@> :NERDTreeToggle<CR> 
 let loaded_matchparen = 1 "対応カッコの強調表示解除
