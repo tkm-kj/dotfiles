@@ -57,6 +57,9 @@ NeoBundle 'tpope/vim-surround'
 NeoBundle 'tmhedberg/matchit'
 NeoBundle 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
 NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-commentary'
+NeoBundle 'kana/vim-textobj-user'
+NeoBundle 'kana/vim-textobj-entire'
 "smartinput-endwise
 call smartinput_endwise#define_default_rules() "上の呼び出し"
 filetype plugin on
