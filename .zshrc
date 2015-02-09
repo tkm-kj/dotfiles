@@ -57,10 +57,10 @@ setopt auto_cd
 typeset -U path cdpath fpath manpath
 
 path=(
-$HOME/bin(N-/)
-/usr/local/bin(N-/)
-/usr/local/sbin(N-/)
-$path
+  $HOME/bin(N-/)
+  /usr/local/bin(N-/)
+  /usr/local/sbin(N-/)
+  $path
 )
 
 # -------------------------------------
@@ -90,8 +90,8 @@ if is-at-least 4.3.10; then
 fi
 
 function vcs_prompt_info() {
-LANG=en_US.UTF-8 vcs_info
-[[ -n "$vcs_info_msg_0_" ]] && echo -n " %{$fg[yellow]%}$vcs_info_msg_0_%f"
+  LANG=en_US.UTF-8 vcs_info
+  [[ -n "$vcs_info_msg_0_" ]] && echo -n " %{$fg[yellow]%}$vcs_info_msg_0_%f"
 }
 # end VCS 
 
@@ -99,11 +99,9 @@ OK="OK"
 NG="NG"
 
 PROMPT=""
-PROMPT+="%(?.%F{green}$OK%f.%F{red}$NG%f) "
+PROMPT+="%(?.%F{green}$OK%f.%F{196}$NG%f) "
 PROMPT+="%F{cyan}%~%f"
 PROMPT+="\$(vcs_prompt_info)"
-PROMPT+="
-"
 PROMPT+="%% "
 
 RPROMPT="[%*]"
@@ -122,25 +120,20 @@ alias tm="tmux -2"
 alias rb="ruby"
 alias va="vagrant"
 alias be="bundle exec"
+alias g="git"
 alias gs="git status"
 alias ga="git add"
 alias gr="git rm"
-alias gc="git commit"
-alias gp="git push"
-
+alias gd="git diff"
+alias gco="git commit"
+alias gch="git checkout"
+alias rep="RAILS_ENV=production"
+alias red="RAILS_ENV=development"
+alias ret="RAILS_ENV=test"
+alias sz="source $HOME/.zshrc"
 # -------------------------------------
 # # キーバインド
 # # -------------------------------------
-
-bindkey -e
-
-function cdup() {
-	echo
-	cd ..
-	zle reset-prompt
-}
-zle -N cdup
-bindkey '^K' cdup
 
 bindkey "^R" history-incremental-search-backward
 
@@ -151,23 +144,15 @@ bindkey "^R" history-incremental-search-backward
 # # cdしたあとで、自動的に ls する
 function chpwd() { ls -1 }
  
-# iTerm2のタブ名を変更する
-function title {
-	echo -ne "\033]0;"$*"\007"
-}
-
 # コマンド履歴検索
 autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
-bindkey "^P" history-beginning-search-backward-end
-bindkey "^N" history-beginning-search-forward-end
-
+bindkey "^j" history-beginning-search-backward-end
+bindkey "^k" history-beginning-search-forward-end
 # 補完候補を詰めて表示する
 setopt list_packed 
 
 if [ -f `brew --prefix`/etc/autojump ]; then
 	  . `brew --prefix`/etc/autojump
 fi
-nvm alias default v0.11.9
-# if [ "$TMUX" = "" ]; then tmux; fi 
