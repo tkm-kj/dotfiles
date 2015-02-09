@@ -85,9 +85,8 @@ filetype indent on
 if !argc()
   autocmd vimenter * NERDTree|normal gg3j
 endif
-let g:nerdstatus = 1 " NERDTreeが起動してるかどうかのステータス 1:起動中 0:停止中 
 " NERDTreeだけの場合は勝手に閉じる
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | let g:nerdstatus = 0 | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 " unite, ag
 let g:unite_abbr_highlight = 'normal' " アウトライン機能のバグの一時的な処置
@@ -119,20 +118,6 @@ function! s:unite_my_settings()"{{{
     " ESCでuniteを終了
     nmap <buffer> <ESC> <Plug>(unite_exit)
 endfunction"}}}
-" let g:unite_enable_start_insert = 1 " insert modeで開始
-" " 大文字小文字を区別しない
-" let g:unite_enable_ignore_case = 1
-" let g:unite_enable_smart_case = 1
-" " カーソル位置の単語をgrep検索
-" nnoremap <silent> ,cg :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
-" " grep検索結果の再呼出
-" nnoremap <silent> ,r  :<C-u>UniteResume search-buffer<CR>
-" " unite grep に ag(The Silver Searcher) を使う
-" if executable('ag')
-"   let g:unite_source_grep_command = 'ag'
-"   let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
-"   let g:unite_source_grep_recursive_opt = ''
-" endif
 
 " neocomplcache
 let g:neocomplcache_enable_at_startup = 1 " neocomplcacheを起動時に有効化
