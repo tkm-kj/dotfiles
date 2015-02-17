@@ -1,6 +1,11 @@
+" ---基本設定---
+" ファイルタイプ関連を無効化
+filetype off
+filetype plugin indent off
+syntax on " シンタックスハイライトを有効にする
+set laststatus=2 " 編集中のファイル名を常に表示
 set whichwrap=b,s,h,l,<,>,[,] " 行を跨いで移動出来る様にする
 set virtualedit=block " 短形選択の時便利なやつ
-syntax on " シンタックスハイライトを有効にする
 set encoding=utf-8 " デフォルトの文字コード
 set ffs=unix,dos,mac  " 改行文字
 " set fileencoding=utf-8
@@ -34,20 +39,30 @@ augroup auto_comment_off
   autocmd BufEnter * setlocal formatoptions-=r
   autocmd BufEnter * setlocal formatoptions-=o
 augroup END
+" 行末の空白を保存時に削除
+autocmd BufWritePre * :%s/\s\+$//e
+autocmd InsertCharPre <buffer> if v:char == '　' | let v:char = " " | endif  " 全角スペースを全部半角スペースに変換
+" rubyのdo~end間移動を%で対応（あんまり正確じゃないっぽい）
+source $VIMRUNTIME/macros/matchit.vim
+augroup matchit
+  au!
+  au FileType ruby let b:match_words = '\<\(module\|class\|def\|begin\|do\|if\|unless\|case\)\>:\<\(elsif\|when\|rescue\)\>:\<\(else\|ensure\)\>:\<end\>'
+augroup END
 
+
+" ---見た目---
 " ハイライト設定
-hi MatchParen cterm=bold ctermbg=darkgray 
-
+hi MatchParen cterm=bold ctermbg=darkgray
 " カーソルライン
 hi LineNr ctermbg=0 ctermfg=0
 hi CursorLineNr ctermbg=4 ctermfg=0
 set cursorline
 hi clear CursorLine
+let loaded_matchparen = 1 " 対応カッコの強調表示解除
+colorscheme jellybeans
 
-colorscheme jellybeans 
 
-autocmd InsertCharPre <buffer> if v:char == '　' | let v:char = " " | endif  " 全角スペースを全部半角スペースに変換
-
+" ---NeoBundle---
 " NeoBundle起動
 if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim
@@ -55,14 +70,13 @@ if has('vim_starting')
   NeoBundleFetch 'Shougo/neobundle.vim'
   call neobundle#end()
 endif
-
 " ここにインストールしたいプラグインのリストを書く
 NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/unite-outline'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'Shougo/neocomplcache.vim'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'jistr/vim-nerdtree-tabs'
-NeoBundle 'Lokaltog/powerline'
 NeoBundle 'git://github.com/scrooloose/syntastic.git'
 NeoBundle 'Townk/vim-autoclose'
 NeoBundle 'kana/vim-smartinput'
@@ -76,19 +90,29 @@ NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'kana/vim-textobj-entire'
 NeoBundle 'rking/ag.vim'
 NeoBundle 'kchmck/vim-coffee-script'
-" smartinput-endwise
-call smartinput_endwise#define_default_rules() "上の呼び出し"
-filetype plugin on
-filetype indent on
+NeoBundle 'itchyny/lightline.vim'
 
+" ---smartinput---
+" 改行する度に行末のスペース削除
+call smartinput#define_rule({
+      \ 'at': '\s\+\%#',
+      \ 'char': '<CR>',
+      \ 'input': "<C-o>:call setline('.', substitute(getline('.'), '\\s\\+$', '', ''))<CR><CR>",
+      \ })
+
+" ---smartinput-endwise---
+call smartinput_endwise#define_default_rules() "上の呼び出し"
+
+" ---NERDTree---
 " ファイル指定で開かれた場合はNERDTreeは表示しない
 if !argc()
   autocmd vimenter * NERDTree|normal gg3j
 endif
 " NERDTreeだけの場合は勝手に閉じる
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+let NERDTreeShowHidden=1 " NERDTreeでdotfile表示
 
-" unite, ag
+" ---Unite---
 let g:unite_abbr_highlight = 'normal' " アウトライン機能のバグの一時的な処置
 "ヒストリー/ヤンク機能を有効化
 let g:unite_source_history_yank_enable =1
@@ -114,29 +138,61 @@ nnoremap <silent> [unite]o :<C-u>Unite<Space>outline<CR>
 nnoremap <silent> [unite]<CR> :<C-u>Unite<Space>file_rec:!<CR>
 "unite.vimを開いている間のキーマッピング
 autocmd FileType unite call s:unite_my_settings()
+" C-cでuniteを終了
 function! s:unite_my_settings()"{{{
-    " ESCでuniteを終了
-    nmap <buffer> <ESC> <Plug>(unite_exit)
+    nmap <buffer> <C-c> <Plug>(unite_exit)
 endfunction"}}}
 
-" neocomplcache
+" ---neocomplcache---
 let g:neocomplcache_enable_at_startup = 1 " neocomplcacheを起動時に有効化
 let g:neocomplcache_enable_smart_case = 1 " 大文字が入力されるまで大文字小文字の区別を無視する
 let g:neocomplcache_min_syntax_length = 3 " シンタックスをキャッシュするときの最小文字長
 " ディクショナリ設定
-let g:neocomplcache_dictionary_filetype_lists = { 
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
+let g:neocomplcache_dictionary_filetype_lists = {
+      \ 'default' : '',
+      \ 'vimshell' : $HOME.'/.vimshell_hist',
+      \ 'scheme' : $HOME.'/.gosh_completions'
+      \ }
 " キーワードパターン
 if !exists('g:neocomplcache_keyword_patterns')
     let g:neocomplcache_keyword_patterns = {}
 endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 " tabでもctrl−nのように選べる
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>" 
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
+" ---syntastic---
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_mode_map = { 'mode': 'active',
+                           \ 'passive_filetypes': ['sass', 'scss'] }
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" ---lightline---
+let g:lightline = {
+      \ 'colorscheme': 'jellybeans',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component': {
+      \   'readonly': '%{&filetype=="help"?"":&readonly?"⭤":""}',
+      \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
+      \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}'
+      \ },
+      \ 'component_visible_condition': {
+      \   'readonly': '(&filetype!="help"&& &readonly)',
+      \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
+      \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
+      \ }
+      \ }
+
+
+" ---キーバインド---
 " 削除した時のレジスタ設定
 nnoremap d "1d
 vnoremap d "1d
@@ -163,21 +219,11 @@ noremap <C-k> <C-u>
 noremap <C-w><C-g> <C-w>t
 noremap <C-w>g <C-w>t
 " vimrc更新
-nnoremap <C-[> :source ~/.vimrc<CR> 
-" NERDTree起動ショートカット
-nnoremap <silent> <C-@> :NERDTreeToggle<CR> 
-" NERDTree閉じて起動した後にウインドウを均等にしてくれるコマンド
-nnoremap <C-w>. <C-w>t<C-w>l15<C-w>>
+nnoremap <C-]> :source ~/.vimrc<CR>
+" NERDTree起動ショートカット && 画面を均等に
+nnoremap <silent> <C-@> :NERDTreeToggle<CR><C-w>=
+" 挿入補助
+inoremap , ,<Space>
 
-let loaded_matchparen = 1 " 対応カッコの強調表示解除
-let g:syntastic_enable_signs=1 " syntastic入れるのに必要
-let g:syntastic_auto_loc_list=2 " syntastic入れるのに必要
-let NERDTreeShowHidden=1 " NERDTreeでdotfile表示
-
-" rubyのdo~end間移動を%で対応（あんまり正確じゃないっぽい）
-source $VIMRUNTIME/macros/matchit.vim
-augroup matchit
-  au!
-  au FileType ruby let b:match_words = '\<\(module\|class\|def\|begin\|do\|if\|unless\|case\)\>:\<\(elsif\|when\|rescue\)\>:\<\(else\|ensure\)\>:\<end\>'
-augroup END
-
+" 最後にファイルタイプ関連を有効にする
+filetype plugin indent on
