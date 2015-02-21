@@ -42,12 +42,6 @@ augroup END
 " 行末の空白を保存時に削除
 autocmd BufWritePre * :%s/\s\+$//e
 autocmd InsertCharPre <buffer> if v:char == '　' | let v:char = " " | endif  " 全角スペースを全部半角スペースに変換
-" rubyのdo~end間移動を%で対応（あんまり正確じゃないっぽい）
-source $VIMRUNTIME/macros/matchit.vim
-augroup matchit
-  au!
-  au FileType ruby let b:match_words = '\<\(module\|class\|def\|begin\|do\|if\|unless\|case\)\>:\<\(elsif\|when\|rescue\)\>:\<\(else\|ensure\)\>:\<end\>'
-augroup END
 
 
 " ---見た目---
@@ -78,12 +72,11 @@ NeoBundle 'Shougo/neocomplcache.vim'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'jistr/vim-nerdtree-tabs'
 NeoBundle 'git://github.com/scrooloose/syntastic.git'
-NeoBundle 'Townk/vim-autoclose'
 NeoBundle 'kana/vim-smartinput'
 NeoBundle 'cohama/vim-smartinput-endwise'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tmhedberg/matchit'
-NeoBundle 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
+NeoBundle 'jelera/vim-javascript-syntax', { 'autoload': { 'filetypes': ['javascript'] } }
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-commentary'
 NeoBundle 'kana/vim-textobj-user'
