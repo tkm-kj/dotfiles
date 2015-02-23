@@ -33,6 +33,15 @@ set ttymouse=xterm2 " 端末vimでマウスを使う
 set guioptions+=a " クリップボード連携
 set noswapfile " swpフィアル作らない
 set pastetoggle=<C-p> " pasteモードの切替
+" 折りたたみ設定
+" zo: カーソル下にある折りたたみをひとつ開く
+" zO: カーソル下にある折りたたみを全て開く
+" zc: カーソル下にある折りたたみをひとつ閉じる
+" zC: カーソル下にある折りたたみを全て閉じる
+set foldmethod=syntax
+let perl_fold=1
+set foldlevel=100
+
 " コメント行から改行した行をコメントにしないようにする
 augroup auto_comment_off
   autocmd!
@@ -103,7 +112,7 @@ if !argc()
 endif
 " NERDTreeだけの場合は勝手に閉じる
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-let NERDTreeShowHidden=1 " NERDTreeでdotfile表示
+let NERDTreeShowHidden=1 " NERDTreeでドットファイル表示
 
 " ---Unite---
 let g:unite_abbr_highlight = 'normal' " アウトライン機能のバグの一時的な処置
@@ -135,6 +144,8 @@ autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()"{{{
     nmap <buffer> <C-c> <Plug>(unite_exit)
 endfunction"}}}
+" ドットファイル表示
+call unite#custom#source('file',  'matchers',  "matcher_default")
 
 " ---neocomplcache---
 let g:neocomplcache_enable_at_startup = 1 " neocomplcacheを起動時に有効化
