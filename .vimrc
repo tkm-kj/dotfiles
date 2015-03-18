@@ -31,8 +31,9 @@ set clipboard+=unnamed " クリップボードにコピーされる
 set mouse=a " マウス操作可能にする
 set ttymouse=xterm2 " 端末vimでマウスを使う
 set guioptions+=a " クリップボード連携
-set noswapfile " swpフィアル作らない
-set pastetoggle=<C-p> " pasteモードの切替
+set noswapfile " swpファイル作らない
+set pastetoggle=<C-^> " pasteモードの切替
+set hlsearch " 検索結果のハイライト
 " 折りたたみ設定
 " zo: カーソル下にある折りたたみをひとつ開く
 " zO: カーソル下にある折りたたみを全て開く
@@ -55,15 +56,14 @@ autocmd InsertCharPre <buffer> if v:char == '　' | let v:char = " " | endif  " 
 
 " ---見た目---
 " ハイライト設定
-hi MatchParen cterm=bold ctermbg=darkgray
+" hi MatchParen cterm=bold ctermbg=darkgray
 " カーソルライン
-hi LineNr ctermbg=0 ctermfg=0
-hi CursorLineNr ctermbg=4 ctermfg=0
-set cursorline
-hi clear CursorLine
-let loaded_matchparen = 1 " 対応カッコの強調表示解除
+" hi LineNr ctermbg=0 ctermfg=0
+" hi CursorLineNr ctermbg=4 ctermfg=0
 colorscheme jellybeans
-
+set cursorline
+highlight CursorLine cterm=underline
+let loaded_matchparen = 1 " 対応カッコの強調表示解除
 
 " ---NeoBundle---
 " NeoBundle起動
@@ -93,6 +93,7 @@ NeoBundle 'kana/vim-textobj-entire'
 NeoBundle 'rking/ag.vim'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'itchyny/lightline.vim'
+NeoBundle 'rhysd/clever-f.vim'
 
 " ---smartinput---
 " 改行する度に行末のスペース削除
@@ -170,7 +171,7 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 let g:syntastic_mode_map = { 'mode': 'active',
-                           \ 'passive_filetypes': ['sass', 'scss'] }
+                           \ 'passive_filetypes': ['sass', 'scss', 'c'] }
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
@@ -210,11 +211,14 @@ nnoremap P "0P
 vnoremap P "0P
 nnoremap dP "1P
 vnoremap dP "1P
-" 移動系
+
+" 移動系, 選択系
 inoremap <C-h> <Left>
-inoremap <C-j> <Down>
-inoremap <C-k> <Up>
 inoremap <C-l> <Right>
+inoremap <C-j> <C-n>
+inoremap <C-k> <C-p>
+inoremap <Down> <C-n>
+inoremap <Up> <C-p>
 noremap <C-h> ^
 nnoremap <C-l> $
 vnoremap <C-l> $h
@@ -226,8 +230,8 @@ noremap <C-w>g <C-w>t
 nnoremap <C-]> :source ~/.vimrc<CR>
 " NERDTree起動ショートカット && 画面を均等に
 nnoremap <silent> <C-@> :NERDTreeToggle<CR><C-w>=
-" 挿入補助
-inoremap , ,<Space>
+" 検索時のハイライト消す
+noremap <silent> <C-c> :noh<CR>
 
 " 最後にファイルタイプ関連を有効にする
 filetype plugin indent on

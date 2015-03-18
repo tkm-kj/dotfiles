@@ -49,6 +49,20 @@ setopt auto_pushd
 # ディレクトリ名を入力するだけでcdできるようにする
 setopt auto_cd
 
+# 同じディレクトリは追加しない
+setopt pushd_ignore_dups
+
+# #--- zsh 用の設定 ---
+# . /usr/local/etc/autojump.zsh
+
+# #--- cd 時の仕掛け ---
+# function precmd () {
+#     pwd=`pwd`
+#     echo "[^[[35m$pwd^[[m]"
+#     autojump -a $pwd
+#     echo $pwd > ~/.curdir
+# }
+
 # -------------------------------------
 # # パス
 # # -------------------------------------
@@ -93,45 +107,58 @@ function vcs_prompt_info() {
   LANG=en_US.UTF-8 vcs_info
   [[ -n "$vcs_info_msg_0_" ]] && echo -n " %{$fg[yellow]%}$vcs_info_msg_0_%f"
 }
-# end VCS 
+
+# end VCS
 
 OK="OK"
 NG="NG"
 
+rbenv_ver="[ruby:`rbenv version | cut -f1 -d' '`]"
+
 PROMPT=""
 PROMPT+="%(?.%F{green}$OK%f.%F{196}$NG%f) "
-PROMPT+="%F{cyan}%~%f"
 PROMPT+="\$(vcs_prompt_info)"
 PROMPT+="%% "
 
-RPROMPT="[%*]"
+RPROMPT=""
+RPROMPT+="%F{120}$rbenv_ver"
 
 # -------------------------------------
 # # エイリアス
 # # -------------------------------------
 
-# ls
-alias ll="ls -l"
-
-# tree
-alias tree="tree -NC" # N: 文字化け対策, C:色をつける
-
-alias tm="tmux -2"
-alias rb="ruby"
-alias va="vagrant"
 alias be="bundle exec"
+alias bo="bundle open"
+alias brc="./bin/rails c"
+alias brd="./bin/rake db:migrate"
+alias brs="./bin/rails s"
+alias bsr="./bin/spring rspec"
+alias bundle="./bin/bundle"
 alias g="git"
-alias gs="git status"
 alias ga="git add"
-alias gr="git rm"
-alias gd="git diff"
-alias gm="git merge"
-alias gco="git commit"
 alias gch="git checkout"
-alias rep="RAILS_ENV=production"
-alias red="RAILS_ENV=development"
-alias ret="RAILS_ENV=test"
+alias gco="git commit"
+alias gd="git diff"
+alias gl="git log -5 --reverse --stat"
+alias gm="git merge"
+alias gr="git rm"
+alias gs="git status"
+alias ll="ls -l"
+alias ma="master"
+alias or="origin"
+alias rails="./bin/rails"
+alias rake="./bin/rake"
+alias rb="ruby"
+alias spring="./bin/spring"
 alias sz="source $HOME/.zshrc"
+alias tm="tmux -2"
+alias tree="tree -NC" # N: 文字化け対策, C:色をつける
+alias va="vagrant"
+
+alias -g red="RAILS_ENV=development"
+alias -g rep="RAILS_ENV=production"
+alias -g ret="RAILS_ENV=test"
+
 # -------------------------------------
 # # キーバインド
 # # -------------------------------------
@@ -143,8 +170,8 @@ bindkey "^R" history-incremental-search-backward
 # # -------------------------------------
 #
 # # cdしたあとで、自動的に ls する
-function chpwd() { ls -1 }
- 
+function chpwd() { pwd; ls -1 }
+
 # コマンド履歴検索
 autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
@@ -152,7 +179,7 @@ zle -N history-beginning-search-forward-end history-search-end
 bindkey "^j" history-beginning-search-backward-end
 bindkey "^k" history-beginning-search-forward-end
 # 補完候補を詰めて表示する
-setopt list_packed 
+setopt list_packed
 
 if [ -f `brew --prefix`/etc/autojump ]; then
 	  . `brew --prefix`/etc/autojump
