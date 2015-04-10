@@ -149,6 +149,7 @@ alias rb="ruby"
 alias sz="source $HOME/.zshrc"
 alias tm="tmux -2"
 alias tree="tree -NC" # N: 文字化け対策, C:色をつける
+alias v="vim"
 alias va="vagrant"
 
 alias -g ma="master"

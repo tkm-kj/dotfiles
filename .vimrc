@@ -85,7 +85,7 @@ NeoBundle 'kana/vim-smartinput'
 NeoBundle 'cohama/vim-smartinput-endwise'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tmhedberg/matchit'
-NeoBundle 'jelera/vim-javascript-syntax', { 'autoload': { 'filetypes': ['javascript'] } }
+" NeoBundle 'jelera/vim-javascript-syntax', { 'autoload': { 'filetypes': ['javascript'] } }
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-commentary'
 NeoBundle 'kana/vim-textobj-user'
@@ -94,6 +94,8 @@ NeoBundle 'rking/ag.vim'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'rhysd/clever-f.vim'
+NeoBundle 'pangloss/vim-javascript'
+NeoBundle 'mxw/vim-jsx'
 
 " ---smartinput---
 " 改行する度に行末のスペース削除
