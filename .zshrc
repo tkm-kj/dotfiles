@@ -13,6 +13,8 @@ export EDITOR=/usr/local/bin/vim
 export PAGER=/usr/local/bin/vimpager
 export MANPAGER=/usr/local/bin/vimpager
 
+export PGDATA=/usr/local/var/postgres
+
 # -------------------------------------
 # # zshのオプション
 # # -------------------------------------
@@ -113,15 +115,25 @@ function vcs_prompt_info() {
 OK="OK"
 NG="NG"
 
-rbenv_ver="[ruby:`rbenv version | cut -f1 -d' '`]"
-
 PROMPT=""
 PROMPT+="%(?.%F{green}$OK%f.%F{196}$NG%f) "
+PROMPT+="%F{130}[%~]%f"
 PROMPT+="\$(vcs_prompt_info)"
 PROMPT+="%% "
 
-RPROMPT=""
-RPROMPT+="%F{120}$rbenv_ver"
+rbenv_version () {
+  if [[ "`rbenv version | grep '.rbenv/version'`" = "" ]];then
+    if [[ "`rbenv version | grep 'RBENV_VERSION'`" = "" ]];then
+      local setting="L"
+    else
+      local setting="V"
+    fi
+  else
+    local setting="G"
+  fi
+  RPROMPT="%F{120}[`rbenv version | cut -f1 -d' '`($setting)]%f"
+}
+add-zsh-hook precmd rbenv_version
 
 # -------------------------------------
 # # エイリアス
@@ -163,6 +175,7 @@ alias -g ret="RAILS_ENV=test"
 # # キーバインド
 # # -------------------------------------
 
+bindkey -e
 bindkey "^R" history-incremental-search-backward
 
 # -------------------------------------
@@ -184,3 +197,4 @@ setopt list_packed
 if [ -f `brew --prefix`/etc/autojump ]; then
 	  . `brew --prefix`/etc/autojump
 fi
+eval "$(rbenv init -)"

@@ -51,15 +51,9 @@ augroup auto_comment_off
 augroup END
 " 行末の空白を保存時に削除
 autocmd BufWritePre * :%s/\s\+$//e
-autocmd InsertCharPre <buffer> if v:char == '　' | let v:char = " " | endif  " 全角スペースを全部半角スペースに変換
 
 
 " ---見た目---
-" ハイライト設定
-" hi MatchParen cterm=bold ctermbg=darkgray
-" カーソルライン
-" hi LineNr ctermbg=0 ctermfg=0
-" hi CursorLineNr ctermbg=4 ctermfg=0
 colorscheme jellybeans
 set cursorline
 highlight CursorLine cterm=underline
@@ -172,8 +166,9 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-let g:syntastic_mode_map = { 'mode': 'active',
-                           \ 'passive_filetypes': ['sass', 'scss', 'c'] }
+let g:syntastic_mode_map = { 'mode': 'passive' } " 自動でsyntax checkが走らないようにする
+" let g:syntastic_mode_map = { 'mode': 'active',
+"                            \ 'passive_filetypes': ['sass', 'scss', 'c'] } " 特定の拡張子だけsyntax checkを行わないようにする
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
@@ -234,6 +229,7 @@ nnoremap <C-]> :source ~/.vimrc<CR>
 nnoremap <silent> <C-@> :NERDTreeToggle<CR><C-w>=
 " 検索時のハイライト消す
 noremap <silent> <C-c> :noh<CR>
+noremap <silent> <C-e> :e!<CR>
 
 " 最後にファイルタイプ関連を有効にする
 filetype plugin indent on
