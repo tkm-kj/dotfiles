@@ -49,9 +49,6 @@ augroup auto_comment_off
   autocmd BufEnter * setlocal formatoptions-=r
   autocmd BufEnter * setlocal formatoptions-=o
 augroup END
-" 行末の空白を保存時に削除
-autocmd BufWritePre * :%s/\s\+$//e
-
 
 " ---見た目---
 colorscheme jellybeans
@@ -90,14 +87,23 @@ NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'rhysd/clever-f.vim'
 NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'mxw/vim-jsx'
+NeoBundle 'mtscout6/vim-cjsx'
 
-" ---smartinput---
-" 改行する度に行末のスペース削除
-call smartinput#define_rule({
-      \ 'at': '\s\+\%#',
-      \ 'char': '<CR>',
-      \ 'input': "<C-o>:call setline('.', substitute(getline('.'), '\\s\\+$', '', ''))<CR><CR>",
-      \ })
+" 行末の空白を除去する処理。 マークダウンの時は適用しない
+function! RemoveBlank()
+  if expand("%:e") != 'md'
+    " 改行する度に行末のスペース削除
+    call smartinput#define_rule({
+          \ 'at': '\s\+\%#',
+          \ 'char': '<CR>',
+          \ 'input': "<C-o>:call setline('.', substitute(getline('.'), '\\s\\+$', '', ''))<CR><CR>",
+          \ })
+
+    autocmd BufWritePre * :%s/\s\+$//e " 行末の空白を保存時に削除
+  endif
+endfunction
+
+autocmd BufReadPre * call RemoveBlank()
 
 " ---smartinput-endwise---
 call smartinput_endwise#define_default_rules() "上の呼び出し"
@@ -115,7 +121,7 @@ let NERDTreeShowHidden=1 " NERDTreeでドットファイル表示
 let g:unite_abbr_highlight = 'normal' " アウトライン機能のバグの一時的な処置
 "ヒストリー/ヤンク機能を有効化
 let g:unite_source_history_yank_enable =1
-"prefix keyの設定
+"prefix keyの設定(スペース)
 nmap <Space> [unite]
 "スペースキーとaキーでカレントディレクトリを表示
 nnoremap <silent> [unite]a :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
@@ -141,8 +147,7 @@ autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()"{{{
     nmap <buffer> <C-c> <Plug>(unite_exit)
 endfunction"}}}
-" ドットファイル表示
-call unite#custom#source('file',  'matchers',  "matcher_default")
+call unite#custom#source('file',  'matchers',  "matcher_default") " ドットファイル表示
 
 " ---neocomplcache---
 let g:neocomplcache_enable_at_startup = 1 " neocomplcacheを起動時に有効化
@@ -229,7 +234,7 @@ nnoremap <C-]> :source ~/.vimrc<CR>
 nnoremap <silent> <C-@> :NERDTreeToggle<CR><C-w>=
 " 検索時のハイライト消す
 noremap <silent> <C-c> :noh<CR>
+" ファイル更新
 noremap <silent> <C-e> :e!<CR>
 
-" 最後にファイルタイプ関連を有効にする
-filetype plugin indent on
+filetype plugin indent on " 最後にファイルタイプ関連を有効にする
