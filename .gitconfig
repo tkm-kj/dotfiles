@@ -1,20 +1,35 @@
 [user]
-	name = Takumi Kaji
-	email = takumi.kaji@esm.co.jp
+  name = Takumi Kaji
+  email = ivezuki3@gmail.com
 [color]
-	ui = true
+  ui = true
 [core]
-	excludesfile = ~/.gitignore_global
-	editor = /usr/bin/vim
-	pager =
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path =
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
+  editor = vim
+  excludesfile = ~/.gitignore
+  quotepath    = false
+  pager =
+[pull]
+  rebase = true
 [push]
-	default = matching
+  default = simple
+[instaweb]
+  browser = google-chrome
+[browse-remote "github.com"]
+  top = https://{host}/{path}
+  ref = https://{host}/{path}/tree/{short_ref}
+  rev = https://{host}/{path}/commit/{commit}
 [alias]
-	st = status
-	com = commit
+  a = add
+  b = branch
+  br = browse-remote
+  ch = checkout
+  co = commit
+  d = diff
+  g = grep
+  k = k
+  l = log -10 --reverse --decorate
+  ls = log -10 --reverse --stat -p --decorate
+  lg = log -20 --graph --oneline --decorate
+  m = merge
+  r = rm
+  s = status

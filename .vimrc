@@ -27,7 +27,7 @@ set autoindent " オートインデント
 set expandtab " タブ文字挿入"
 set shiftwidth=2 " タブを挿入するときの幅
 set showcmd " コマンド表示
-set clipboard+=unnamed " クリップボードにコピーされる
+set clipboard=unnamed,autoselect " クリップボードにコピーされる"
 set mouse=a " マウス操作可能にする
 set ttymouse=xterm2 " 端末vimでマウスを使う
 set guioptions+=a " クリップボード連携
@@ -88,6 +88,7 @@ NeoBundle 'rhysd/clever-f.vim'
 NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'mxw/vim-jsx'
 NeoBundle 'mtscout6/vim-cjsx'
+NeoBundle 'junegunn/vim-easy-align'
 
 " 行末の空白を除去する処理。 マークダウンの時は適用しない
 function! RemoveBlank()
@@ -198,6 +199,9 @@ let g:lightline = {
       \ }
       \ }
 
+" ---vim-easy-align---
+" ビジュアルモードで範囲選択 + Enter + (区切り文字)で頭が並ぶようになる
+vmap <Enter> <Plug>(EasyAlign)
 
 " ---キーバインド---
 " 削除した時のレジスタ設定

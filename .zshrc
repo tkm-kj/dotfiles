@@ -13,8 +13,6 @@ export EDITOR=/usr/local/bin/vim
 export PAGER=/usr/local/bin/vimpager
 export MANPAGER=/usr/local/bin/vimpager
 
-export PGDATA=/usr/local/var/postgres
-
 # -------------------------------------
 # # zshのオプション
 # # -------------------------------------
@@ -78,6 +76,8 @@ path=(
   /usr/local/sbin(N-/)
   $path
 )
+
+export PGDATA=/usr/local/var/postgres
 
 # -------------------------------------
 # # プロンプト
@@ -146,16 +146,6 @@ alias brd="./bin/rake db:migrate"
 alias brs="./bin/rails s"
 alias bsr="./bin/spring rspec"
 alias g="git"
-alias ga="git add"
-alias gb="git branch"
-alias gch="git checkout"
-alias gco="git commit"
-alias gd="git diff"
-alias gk="gitk"
-alias gl="git log -5 --reverse --stat"
-alias gm="git merge"
-alias gr="git rm"
-alias gs="git status"
 alias ll="ls -l"
 alias p="pwd"
 alias rb="ruby"
@@ -165,8 +155,8 @@ alias tree="tree -NC" # N: 文字化け対策, C:色をつける
 alias v="vim"
 alias va="vagrant"
 
-alias -g ma="master"
-alias -g or="origin"
+alias -g mas="master"
+alias -g org="org"
 alias -g red="RAILS_ENV=development"
 alias -g rep="RAILS_ENV=production"
 alias -g ret="RAILS_ENV=test"
@@ -176,7 +166,6 @@ alias -g ret="RAILS_ENV=test"
 # # -------------------------------------
 
 bindkey -e
-bindkey "^R" history-incremental-search-backward
 
 # -------------------------------------
 # # その他
