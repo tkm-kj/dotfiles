@@ -8,8 +8,6 @@
   excludesfile = ~/.gitignore
   quotepath    = false
   pager =
-[pull]
-  rebase = true
 [push]
   default = simple
 [instaweb]
@@ -25,6 +23,7 @@
   ch = checkout
   co = commit
   d = diff
+  dc = diff --cached
   g = grep
   k = k
   l = log -10 --reverse --decorate

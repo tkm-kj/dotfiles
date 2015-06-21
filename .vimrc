@@ -8,14 +8,12 @@ set whichwrap=b,s,h,l,<,>,[,] " 行を跨いで移動出来る様にする
 set virtualedit=block " 短形選択の時便利なやつ
 set encoding=utf-8 " デフォルトの文字コード
 set ffs=unix,dos,mac  " 改行文字
-" set fileencoding=utf-8
 set smartindent " 新しい行を開始した時に、新しい行のインデントを現在行と同じ量にする
 set cindent " Cプログラムの自動インデント
 set wrap " 検索がファイル末尾まで行ったら最初に戻る
 set wildmenu    " コマンドの補完候補を表示
 set number " 行番号を表示する
 set incsearch " インクリメンタルサーチ
-" set ignorecase " 検索時に大文字小文字を無視する
 set showmatch " 対応する括弧のハイライト表示する
 set showmode " モード表示する
 set title " 編集中のファイル名を表示する
@@ -64,19 +62,18 @@ if has('vim_starting')
   NeoBundleFetch 'Shougo/neobundle.vim'
   call neobundle#end()
 endif
-" ここにインストールしたいプラグインのリストを書く
+
+" plugins
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/unite-outline'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'Shougo/neocomplcache.vim'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'jistr/vim-nerdtree-tabs'
-NeoBundle 'git://github.com/scrooloose/syntastic.git'
 NeoBundle 'kana/vim-smartinput'
 NeoBundle 'cohama/vim-smartinput-endwise'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tmhedberg/matchit'
-" NeoBundle 'jelera/vim-javascript-syntax', { 'autoload': { 'filetypes': ['javascript'] } }
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-commentary'
 NeoBundle 'kana/vim-textobj-user'
@@ -84,24 +81,22 @@ NeoBundle 'kana/vim-textobj-entire'
 NeoBundle 'rking/ag.vim'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'itchyny/lightline.vim'
-NeoBundle 'rhysd/clever-f.vim'
 NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'mxw/vim-jsx'
 NeoBundle 'mtscout6/vim-cjsx'
 NeoBundle 'junegunn/vim-easy-align'
+NeoBundle 'nathanaelkane/vim-indent-guides'
 
-" 行末の空白を除去する処理。 マークダウンの時は適用しない
+" 行末の空白を除去する処理。
 function! RemoveBlank()
-  if expand("%:e") != 'md'
-    " 改行する度に行末のスペース削除
-    call smartinput#define_rule({
-          \ 'at': '\s\+\%#',
-          \ 'char': '<CR>',
-          \ 'input': "<C-o>:call setline('.', substitute(getline('.'), '\\s\\+$', '', ''))<CR><CR>",
-          \ })
+  " 改行する度に行末のスペース削除
+  call smartinput#define_rule({
+        \ 'at': '\s\+\%#',
+        \ 'char': '<CR>',
+        \ 'input': "<C-o>:call setline('.', substitute(getline('.'), '\\s\\+$', '', ''))<CR><CR>",
+        \ })
 
-    autocmd BufWritePre * :%s/\s\+$//e " 行末の空白を保存時に削除
-  endif
+  autocmd BufWritePre * :%s/\s\+$//e " 行末の空白を保存時に削除
 endfunction
 
 autocmd BufReadPre * call RemoveBlank()
@@ -168,18 +163,6 @@ let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 " tabでもctrl−nのように選べる
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
-" ---syntastic---
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_mode_map = { 'mode': 'passive' } " 自動でsyntax checkが走らないようにする
-" let g:syntastic_mode_map = { 'mode': 'active',
-"                            \ 'passive_filetypes': ['sass', 'scss', 'c'] } " 特定の拡張子だけsyntax checkを行わないようにする
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
 " ---lightline---
 let g:lightline = {
       \ 'colorscheme': 'jellybeans',
@@ -203,6 +186,10 @@ let g:lightline = {
 " ビジュアルモードで範囲選択 + Enter + (区切り文字)で頭が並ぶようになる
 vmap <Enter> <Plug>(EasyAlign)
 
+" ---vim-indent-guides---
+" vimを立ち上げたときに、自動的にvim-indent-guidesをオンにする
+let g:indent_guides_enable_on_vim_startup = 1
+
 " ---キーバインド---
 " 削除した時のレジスタ設定
 nnoremap d "1d
@@ -221,6 +208,8 @@ vnoremap dP "1P
 " 移動系, 選択系
 inoremap <C-h> <Left>
 inoremap <C-l> <Right>
+inoremap <C-b> <Left>
+inoremap <C-f> <Right>
 inoremap <C-j> <C-n>
 inoremap <C-k> <C-p>
 inoremap <Down> <C-n>
@@ -232,6 +221,7 @@ noremap <C-j> <C-d>
 noremap <C-k> <C-u>
 noremap <C-w><C-g> <C-w>t
 noremap <C-w>g <C-w>t
+
 " vimrc更新
 nnoremap <C-]> :source ~/.vimrc<CR>
 " NERDTree起動ショートカット && 画面を均等に
@@ -240,5 +230,7 @@ nnoremap <silent> <C-@> :NERDTreeToggle<CR><C-w>=
 noremap <silent> <C-c> :noh<CR>
 " ファイル更新
 noremap <silent> <C-e> :e!<CR>
+" 検索はvery magicで
+nnoremap / /\v
 
 filetype plugin indent on " 最後にファイルタイプ関連を有効にする

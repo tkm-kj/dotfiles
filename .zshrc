@@ -155,8 +155,9 @@ alias tree="tree -NC" # N: 文字化け対策, C:色をつける
 alias v="vim"
 alias va="vagrant"
 
+alias -g he="heroku"
 alias -g mas="master"
-alias -g org="org"
+alias -g org="origin"
 alias -g red="RAILS_ENV=development"
 alias -g rep="RAILS_ENV=production"
 alias -g ret="RAILS_ENV=test"
