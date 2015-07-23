@@ -21,6 +21,7 @@
   b = branch
   br = browse-remote
   ch = checkout
+  cm = commit -m
   co = commit
   d = diff
   dc = diff --cached

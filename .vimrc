@@ -9,7 +9,6 @@ set virtualedit=block " 短形選択の時便利なやつ
 set encoding=utf-8 " デフォルトの文字コード
 set ffs=unix,dos,mac  " 改行文字
 set smartindent " 新しい行を開始した時に、新しい行のインデントを現在行と同じ量にする
-set cindent " Cプログラムの自動インデント
 set wrap " 検索がファイル末尾まで行ったら最初に戻る
 set wildmenu    " コマンドの補完候補を表示
 set number " 行番号を表示する
@@ -21,7 +20,6 @@ set ruler " ルーラーの表示する
 set t_Co=256 " 256色
 set background=dark " 背景
 set tabstop=2 " タブを表示するときの幅
-set autoindent " オートインデント
 set expandtab " タブ文字挿入"
 set shiftwidth=2 " タブを挿入するときの幅
 set showcmd " コマンド表示
@@ -40,6 +38,13 @@ set hlsearch " 検索結果のハイライト
 set foldmethod=syntax
 let perl_fold=1
 set foldlevel=100
+set autoread
+
+" ファイル変更後の自動更新
+augroup vimrc-checktime
+  autocmd!
+  autocmd WinEnter * checktime
+augroup END
 
 " コメント行から改行した行をコメントにしないようにする
 augroup auto_comment_off
@@ -86,6 +91,9 @@ NeoBundle 'mxw/vim-jsx'
 NeoBundle 'mtscout6/vim-cjsx'
 NeoBundle 'junegunn/vim-easy-align'
 NeoBundle 'nathanaelkane/vim-indent-guides'
+NeoBundle 'slim-template/vim-slim.git'
+NeoBundle 'vim-scripts/vim-auto-save'
+NeoBundle 'rhysd/clever-f.vim'
 
 " 行末の空白を除去する処理。
 function! RemoveBlank()
@@ -95,8 +103,6 @@ function! RemoveBlank()
         \ 'char': '<CR>',
         \ 'input': "<C-o>:call setline('.', substitute(getline('.'), '\\s\\+$', '', ''))<CR><CR>",
         \ })
-
-  autocmd BufWritePre * :%s/\s\+$//e " 行末の空白を保存時に削除
 endfunction
 
 autocmd BufReadPre * call RemoveBlank()
@@ -165,7 +171,7 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " ---lightline---
 let g:lightline = {
-      \ 'colorscheme': 'jellybeans',
+      \ 'colorscheme': 'default',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
@@ -190,6 +196,11 @@ vmap <Enter> <Plug>(EasyAlign)
 " vimを立ち上げたときに、自動的にvim-indent-guidesをオンにする
 let g:indent_guides_enable_on_vim_startup = 1
 
+" ---vim-auto-save---
+let g:auto_save = 1
+let g:auto_save_in_insert_mode = 0
+let g:auto_save_silent = 1
+
 " ---キーバインド---
 " 削除した時のレジスタ設定
 nnoremap d "1d
@@ -206,10 +217,12 @@ nnoremap dP "1P
 vnoremap dP "1P
 
 " 移動系, 選択系
-inoremap <C-h> <Left>
+inoremap <C-h> <BS>
 inoremap <C-l> <Right>
 inoremap <C-b> <Left>
 inoremap <C-f> <Right>
+inoremap <C-n> <Down>
+inoremap <C-p> <Up>
 inoremap <C-j> <C-n>
 inoremap <C-k> <C-p>
 inoremap <Down> <C-n>
@@ -221,6 +234,12 @@ noremap <C-j> <C-d>
 noremap <C-k> <C-u>
 noremap <C-w><C-g> <C-w>t
 noremap <C-w>g <C-w>t
+
+" 編集系
+noremap c<C-h> c^
+noremap c<C-l> c$
+noremap d<C-h> d^
+noremap d<C-l> d$
 
 " vimrc更新
 nnoremap <C-]> :source ~/.vimrc<CR>

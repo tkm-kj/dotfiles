@@ -140,6 +140,7 @@ add-zsh-hook precmd rbenv_version
 # # -------------------------------------
 
 alias be="bundle exec"
+alias bi="bundle install"
 alias bo="bundle open"
 alias brc="./bin/rails c"
 alias brd="./bin/rake db:migrate"
