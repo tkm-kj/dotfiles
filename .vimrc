@@ -28,6 +28,8 @@ set mouse=a " マウス操作可能にする
 set ttymouse=xterm2 " 端末vimでマウスを使う
 set guioptions+=a " クリップボード連携
 set noswapfile " swpファイル作らない
+set noundofile " undo情報を保持するファイルを作らない
+set nobackup " バックアップを作らない
 set pastetoggle=<C-^> " pasteモードの切替
 set hlsearch " 検索結果のハイライト
 " 折りたたみ設定
@@ -39,6 +41,7 @@ set foldmethod=syntax
 let perl_fold=1
 set foldlevel=100
 set autoread
+set vb t_vb=
 
 " ファイル変更後の自動更新
 augroup vimrc-checktime
@@ -73,6 +76,7 @@ NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/unite-outline'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'Shougo/neocomplcache.vim'
+NeoBundle 'Shougo/vimproc.vim'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'jistr/vim-nerdtree-tabs'
 NeoBundle 'kana/vim-smartinput'
@@ -94,6 +98,7 @@ NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'slim-template/vim-slim.git'
 NeoBundle 'vim-scripts/vim-auto-save'
 NeoBundle 'rhysd/clever-f.vim'
+NeoBundle 'elixir-lang/vim-elixir'
 
 " 行末の空白を除去する処理。
 function! RemoveBlank()
@@ -118,6 +123,11 @@ endif
 " NERDTreeだけの場合は勝手に閉じる
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 let NERDTreeShowHidden=1 " NERDTreeでドットファイル表示
+augroup nerd_key_config
+  autocmd!
+augroup END
+autocmd nerd_key_config filetype nerdtree nnoremap <buffer> <C-j> <C-d>
+autocmd nerd_key_config filetype nerdtree nnoremap <buffer> <C-k> <C-u>
 
 " ---Unite---
 let g:unite_abbr_highlight = 'normal' " アウトライン機能のバグの一時的な処置
@@ -127,14 +137,14 @@ let g:unite_source_history_yank_enable =1
 nmap <Space> [unite]
 "スペースキーとaキーでカレントディレクトリを表示
 nnoremap <silent> [unite]a :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-"スペースキーとfキーでバッファと最近開いたファイル一覧を表示
-nnoremap <silent> [unite]f :<C-u>Unite<Space>buffer file_mru<CR>
+"スペースキーとgキーでgrep
+nnoremap <silent> [unite]g :<C-u>Unite<Space>grep<CR>
+"スペースキーとrキーで直近で調べたものを再grep
+nnoremap <silent> [unite]r :<C-u>UniteResume -buffer-name=search-buffer<CR>
 "スペースキーとdキーで最近開いたディレクトリを表示
 nnoremap <silent> [unite]d :<C-u>Unite<Space>directory_mru<CR>
 "スペースキーとbキーでバッファを表示
 nnoremap <silent> [unite]b :<C-u>Unite<Space>buffer<CR>
-"スペースキーとrキーでレジストリを表示
-nnoremap <silent> [unite]r :<C-u>Unite<Space>register<CR>
 "スペースキーとtキーでタブを表示
 nnoremap <silent> [unite]t :<C-u>Unite<Space>tab<CR>
 "スペースキーとhキーでヒストリ/ヤンクを表示
@@ -150,9 +160,19 @@ function! s:unite_my_settings()"{{{
     nmap <buffer> <C-c> <Plug>(unite_exit)
 endfunction"}}}
 call unite#custom#source('file',  'matchers',  "matcher_default") " ドットファイル表示
+" grepでag使用
+if executable('ag')
+  let g:unite_source_grep_command = 'ag'
+  let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+  let g:unite_source_grep_recursive_opt = ''
+endif
+augroup unite_key_config
+  autocmd!
+augroup END
+autocmd unite_key_config filetype unite nnoremap <buffer> <C-k> <C-u>
 
 " ---neocomplcache---
-let g:neocomplcache_enable_at_startup = 1 " neocomplcacheを起動時に有効化
+" let g:neocomplcache_enable_at_startup = 1 " neocomplcacheを起動時に有効化
 let g:neocomplcache_enable_smart_case = 1 " 大文字が入力されるまで大文字小文字の区別を無視する
 let g:neocomplcache_min_syntax_length = 3 " シンタックスをキャッシュするときの最小文字長
 " ディクショナリ設定
@@ -238,8 +258,6 @@ noremap <C-w>g <C-w>t
 " 編集系
 noremap c<C-h> c^
 noremap c<C-l> c$
-noremap d<C-h> d^
-noremap d<C-l> d$
 
 " vimrc更新
 nnoremap <C-]> :source ~/.vimrc<CR>
