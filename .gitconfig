@@ -7,29 +7,39 @@
   editor = vim
   excludesfile = ~/.gitignore
   quotepath    = false
-  pager =
 [push]
   default = simple
-[instaweb]
-  browser = google-chrome
-[browse-remote "github.com"]
-  top = https://{host}/{path}
-  ref = https://{host}/{path}/tree/{short_ref}
-  rev = https://{host}/{path}/commit/{commit}
 [alias]
   a = add
+  ap = add -p
   b = branch
-  br = browse-remote
-  ch = checkout
-  cm = commit -m
-  co = commit
+  bd = branch -d
+  bm = branch -m
+  ca = commit -v --amend
+  ci = commit -v
+  cl = clone
+  cm = commit -v -m
+  co = checkout
+  cob = checkout -b
+  com = checkout master
+  cp = cherry-pick
   d = diff
   dc = diff --cached
-  g = grep
-  k = k
+  dm = diff origin/master
+  f = fetch
+  g = grep -n
   l = log -10 --reverse --decorate
-  ls = log -10 --reverse --stat -p --decorate
-  lg = log -20 --graph --oneline --decorate
+  lg = log -100 --graph --oneline --decorate
+  ll = log -10 --reverse --stat -p --decorate
   m = merge
-  r = rm
-  s = status
+  rb = rebase
+  rba = rebase --abort
+  rbc = rebase --continue
+  rbm = rebase master
+  rfl = reflog
+  rsh = reset --hard
+  rss = reset --soft
+  sh = show
+  sl = stash list
+  sp = stash pop
+  st = status
