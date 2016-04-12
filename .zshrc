@@ -13,6 +13,11 @@ export EDITOR=/usr/local/bin/vim
 export PAGER=/usr/local/bin/vimpager
 export MANPAGER=/usr/local/bin/vimpager
 
+export GIT=/usr/local/bin/git
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+
 # -------------------------------------
 # # zshのオプション
 # # -------------------------------------
@@ -191,3 +196,5 @@ if [ -f `brew --prefix`/etc/autojump ]; then
 	  . `brew --prefix`/etc/autojump
 fi
 eval "$(rbenv init -)"
+eval "$(direnv hook bash)"
+export EDITOR=vi

@@ -3,6 +3,7 @@ set laststatus=2 " 編集中のファイル名を常に表示
 set whichwrap=b,s,h,l,<,>,[,] " 行を跨いで移動出来る様にする
 set virtualedit=block " 短形選択の時便利なやつ
 set encoding=utf-8 " デフォルトの文字コード
+set fileencoding=utf-8 " ファイルの文字コード
 set ffs=unix,dos,mac  " 改行文字
 set smartindent " 新しい行を開始した時に、新しい行のインデントを現在行と同じ量にする
 set wrap " 検索がファイル末尾まで行ったら最初に戻る
@@ -66,6 +67,12 @@ autocmd BufReadPre * call RemoveBlank()
 
 " jbuilderをrubyシンタックスとして見るようにする
 au BufNewFile,BufRead *.json.jbuilder set ft=ruby
+
+" commitメッセージを日本語で書くとエラーが起きる現象の対応
+au BufNewFile,BufRead COMMIT_EDITMSG set fileencoding=utf-8 encoding=utf-8 filetype=gitcommit
+
+" goのインデント設定
+au BufNewFile,BufRead *.go set noexpandtab tabstop=4 shiftwidth=4
 
 " ---見た目---
 colorscheme jellybeans

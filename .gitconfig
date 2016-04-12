@@ -7,6 +7,7 @@
   editor = vim
   excludesfile = ~/.gitignore
   quotepath    = false
+  pager =
 [push]
   default = simple
 [alias]
@@ -37,8 +38,8 @@
   rbc = rebase --continue
   rbm = rebase master
   rfl = reflog
+  rs = reset
   rsh = reset --hard
-  rss = reset --soft
   sh = show
   sl = stash list
   sp = stash pop

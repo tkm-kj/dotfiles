@@ -13,5 +13,7 @@ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/
 brew install the_silver_searcher
 brew install reattach-to-user-namespace
 vim -c ':NeoBundleInstall'
-git clone https://gist.github.com/5141204.git ~/.vim/bundle/nerdtree/nerdtree_plugin/grep_menuitem.vim
-echo 'To install tpm plugins, push Ctrl-t + I and check http://qiita.com/masa2sei/items/94f6d89bbd0c2ffcd53b'
+git clone https://gist.github.com/04872df9d66962082dfc2a71113c1966.git ~/.vim/bundle/nerdtree/nerdtree_plugin/grep_menuitem.vim
+sh ~/.tmux/plugins/tpm/scripts/install_plugins.sh
+
+echo 'Finish!'
