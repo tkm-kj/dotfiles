@@ -200,3 +200,5 @@ fi
 eval "$(rbenv init -)"
 eval "$(direnv hook bash)"
 export EDITOR=vi
+
+source enhancd/enhancd.sh
