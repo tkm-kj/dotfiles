@@ -1,11 +1,8 @@
 " ---NeoBundle---
 " NeoBundle起動
-if has('vim_starting')
-  set runtimepath+=~/.vim/bundle/neobundle.vim
-  call neobundle#begin(expand('~/.vim/bundle/'))
-  NeoBundleFetch 'Shougo/neobundle.vim'
-  call neobundle#end()
-endif
+set runtimepath+=~/.vim/bundle/neobundle.vim
+call neobundle#begin(expand('~/.vim/bundle/'))
+NeoBundleFetch 'Shougo/neobundle.vim'
 
 " plugins
 NeoBundle 'Shougo/unite.vim'
@@ -36,6 +33,9 @@ NeoBundle 'vim-scripts/vim-auto-save'
 NeoBundle 'rhysd/clever-f.vim'
 NeoBundle 'elixir-lang/vim-elixir'
 NeoBundle 'kmnk/vim-unite-giti.git'
+NeoBundle 'tomtom/tcomment_vim'
+
+call neobundle#end()
 
 " ---smartinput-endwise---
 call smartinput_endwise#define_default_rules() "上の呼び出し"

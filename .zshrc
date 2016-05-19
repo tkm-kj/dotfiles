@@ -198,7 +198,4 @@ if [ -f `brew --prefix`/etc/autojump ]; then
 	  . `brew --prefix`/etc/autojump
 fi
 eval "$(rbenv init -)"
-eval "$(direnv hook bash)"
 export EDITOR=vi
-
-source enhancd/enhancd.sh
