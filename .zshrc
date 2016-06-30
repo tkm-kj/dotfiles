@@ -14,6 +14,7 @@ export PAGER=/usr/local/bin/vimpager
 export MANPAGER=/usr/local/bin/vimpager
 
 export GIT=/usr/local/bin/git
+export PATH=$PATH:/usr/local/share/git-core/contrib/diff-highlight
 export GOROOT=/usr/local/go
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
@@ -153,6 +154,7 @@ alias brd="./bin/rake db:migrate"
 alias brs="./bin/rails s"
 alias bsr="./bin/spring rspec"
 alias bu="bundle update"
+alias ctags="`brew --prefix`/bin/ctags"
 alias diff="diff -u"
 alias g="git"
 alias ll="ls -l"

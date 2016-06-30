@@ -1,4 +1,6 @@
 syntax on " シンタックスハイライトを有効にする
+set modifiable
+set write
 set laststatus=2 " 編集中のファイル名を常に表示
 set whichwrap=b,s,h,l,<,>,[,] " 行を跨いで移動出来る様にする
 set virtualedit=block " 短形選択の時便利なやつ

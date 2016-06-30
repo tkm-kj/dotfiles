@@ -7,7 +7,6 @@
   editor = vim
   excludesfile = ~/.gitignore
   quotepath    = false
-  pager =
 [push]
   default = simple
 [alias]
@@ -29,9 +28,9 @@
   dm = diff origin/master
   f = fetch
   g = grep -n
-  l = log -10 --reverse --decorate
+  l = log -10 --decorate
   lg = log -100 --graph --oneline --decorate
-  ll = log -10 --reverse --stat -p --decorate
+  ll = log -10 --stat -p --decorate
   m = merge
   rb = rebase
   rba = rebase --abort
@@ -44,3 +43,9 @@
   sl = stash list
   sp = stash pop
   st = status
+[pager]
+	log = diff-highlight | less
+	show = diff-highlight | less
+	diff = diff-highlight | less
+[diff]
+	compactionHeuristic = true

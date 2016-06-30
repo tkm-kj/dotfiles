@@ -15,6 +15,7 @@ vnoremap dP "1P
 
 " 移動系, 選択系
 inoremap <C-h> <BS>
+inoremap <C-d> <DEL>
 inoremap <C-l> <Right>
 inoremap <C-b> <Left>
 inoremap <C-f> <Right>
@@ -36,8 +37,7 @@ noremap <C-w>g <C-w>t
 noremap c<C-h> c^
 noremap c<C-l> c$
 
-" vimrc更新
-nnoremap <C-]> :source ~/.vimrc<CR>
+nnoremap <C-[> :! ctags --langmap=RUBY:.rb --exclude="*.js"  --exclude=".git*" -R .<CR>
 " NERDTree起動ショートカット && 画面を均等に
 nnoremap <silent> <C-@> :NERDTreeToggle<CR><C-w>=
 " 検索時のハイライト消す
