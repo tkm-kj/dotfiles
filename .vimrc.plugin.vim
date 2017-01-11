@@ -10,8 +10,6 @@ NeoBundle 'Shougo/unite-outline'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'Shougo/neocomplcache.vim'
 NeoBundle 'Shougo/vimproc.vim'
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'jistr/vim-nerdtree-tabs'
 NeoBundle 'kana/vim-smartinput'
 NeoBundle 'cohama/vim-smartinput-endwise'
 NeoBundle 'tpope/vim-surround'
@@ -34,25 +32,12 @@ NeoBundle 'rhysd/clever-f.vim'
 NeoBundle 'elixir-lang/vim-elixir'
 NeoBundle 'kmnk/vim-unite-giti.git'
 NeoBundle 'tomtom/tcomment_vim'
+NeoBundle 'derekwyatt/vim-scala'
 
 call neobundle#end()
 
 " ---smartinput-endwise---
 call smartinput_endwise#define_default_rules() "上の呼び出し"
-
-" ---NERDTree---
-" ファイル指定で開かれた場合はNERDTreeは表示しない
-if !argc()
-  autocmd vimenter * NERDTree|normal gg3j
-endif
-" NERDTreeだけの場合は勝手に閉じる
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-let NERDTreeShowHidden=1 " NERDTreeでドットファイル表示
-augroup nerd_key_config
-  autocmd!
-augroup END
-autocmd nerd_key_config filetype nerdtree nnoremap <buffer> <C-j> <C-d>
-autocmd nerd_key_config filetype nerdtree nnoremap <buffer> <C-k> <C-u>
 
 " ---Unite---
 let g:unite_abbr_highlight = 'normal' " アウトライン機能のバグの一時的な処置
@@ -64,6 +49,8 @@ nmap <Space> [unite]
 nnoremap <silent> [unite]a :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 "スペースキーとgキーでgrep
 nnoremap <silent> [unite]g :<C-u>Unite<Space>grep<CR>
+nnoremap <silent> [unite]c :<C-u>Unite<Space>grep:. -buffer-name=search-buffer<CR>
+nnoremap <silent> [unite]w :<C-u>Unite<Space>grep:. -buffer-name=search-buffer<CR><C-R><C-W><CR>
 "スペースキーとrキーで直近で調べたものを再grep
 nnoremap <silent> [unite]r :<C-u>UniteResume -buffer-name=search-buffer<CR>
 "スペースキーとdキーで最近開いたディレクトリを表示
@@ -97,7 +84,7 @@ augroup END
 autocmd unite_key_config filetype unite nnoremap <buffer> <C-k> <C-u>
 
 " ---neocomplcache---
-" let g:neocomplcache_enable_at_startup = 1 " neocomplcacheを起動時に有効化
+let g:neocomplcache_enable_at_startup = 1 " neocomplcacheを起動時に有効化
 let g:neocomplcache_enable_smart_case = 1 " 大文字が入力されるまで大文字小文字の区別を無視する
 let g:neocomplcache_min_syntax_length = 3 " シンタックスをキャッシュするときの最小文字長
 " ディクショナリ設定

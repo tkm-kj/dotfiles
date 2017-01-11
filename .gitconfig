@@ -38,7 +38,6 @@
   rbm = rebase master
   rfl = reflog
   rs = reset
-  rsh = reset --hard
   sh = show
   sl = stash list
   sp = stash pop
@@ -49,3 +48,7 @@
 	diff = diff-highlight | less
 [diff]
 	compactionHeuristic = true
+[ghq]
+  root = ~/src
+[fetch]
+  prune = true

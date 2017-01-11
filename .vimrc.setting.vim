@@ -65,7 +65,7 @@ function! RemoveBlank()
         \ })
 endfunction
 
-autocmd BufReadPre * call RemoveBlank()
+" autocmd BufReadPre * call RemoveBlank()
 
 " jbuilderをrubyシンタックスとして見るようにする
 au BufNewFile,BufRead *.json.jbuilder set ft=ruby

@@ -147,6 +147,7 @@ add-zsh-hook precmd rbenv_version
 
 alias be="bundle exec"
 alias bi="bundle install"
+alias bl="bundle list"
 alias bo="bundle open"
 alias bod="bundle outdated"
 alias brc="./bin/rails c"
@@ -154,7 +155,7 @@ alias brd="./bin/rake db:migrate"
 alias brs="./bin/rails s"
 alias bsr="./bin/spring rspec"
 alias bu="bundle update"
-alias ctags="`brew --prefix`/bin/ctags"
+alias ct='ctags --langmap=RUBY:.rb --exclude="*.js"  --exclude=".git*" -R .'
 alias diff="diff -u"
 alias g="git"
 alias ll="ls -l"
@@ -163,9 +164,9 @@ alias rb="ruby"
 alias sz="source $HOME/.zshrc"
 alias tm="tmux -2"
 alias tree="tree -NC" # N: 文字化け対策, C:色をつける
-alias v="vim"
+alias v='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 alias va="vagrant"
-
+alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 alias -g cu="cucumber"
 alias -g he="heroku"
 alias -g mas="master"
@@ -191,8 +192,8 @@ function chpwd() { pwd; ls -1 }
 autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
-bindkey "^j" history-beginning-search-backward-end
-bindkey "^k" history-beginning-search-forward-end
+# bindkey "^j" history-beginning-search-backward-end
+# bindkey "^k" history-beginning-search-forward-end
 # 補完候補を詰めて表示する
 setopt list_packed
 
@@ -200,4 +201,5 @@ if [ -f `brew --prefix`/etc/autojump ]; then
 	  . `brew --prefix`/etc/autojump
 fi
 eval "$(rbenv init -)"
+eval "$(direnv hook zsh)"
 export EDITOR=vi
