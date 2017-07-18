@@ -18,6 +18,7 @@ export PATH=$PATH:/usr/local/share/git-core/contrib/diff-highlight
 export GOROOT=/usr/local/go
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+export PKG_CONFIG_PATH=/opt/ImageMagick/lib/pkgconfig
 
 # -------------------------------------
 # # zshのオプション
@@ -145,6 +146,7 @@ add-zsh-hook precmd rbenv_version
 # # エイリアス
 # # -------------------------------------
 
+alias ap="ansible-playbook"
 alias be="bundle exec"
 alias bi="bundle install"
 alias bl="bundle list"
@@ -158,6 +160,7 @@ alias bu="bundle update"
 alias ct='ctags --langmap=RUBY:.rb --exclude="*.js"  --exclude=".git*" -R .'
 alias diff="diff -u"
 alias g="git"
+alias gc="gcloud"
 alias ll="ls -l"
 alias p="pwd"
 alias rb="ruby"
@@ -203,3 +206,20 @@ fi
 eval "$(rbenv init -)"
 eval "$(direnv hook zsh)"
 export EDITOR=vi
+export PATH="$HOME/.embulk/bin:$PATH"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f /Users/tkm_kj/Downloads/google-cloud-sdk/path.zsh.inc ]; then
+  source '/Users/tkm_kj/Downloads/google-cloud-sdk/path.zsh.inc'
+fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f /Users/tkm_kj/Downloads/google-cloud-sdk/completion.zsh.inc ]; then
+  source '/Users/tkm_kj/Downloads/google-cloud-sdk/completion.zsh.inc'
+fi
+
+# added by travis gem
+[ -f /Users/tkm_kj/.travis/travis.sh ] && source /Users/tkm_kj/.travis/travis.sh
+
+export PATH="$HOME/.yarn/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"

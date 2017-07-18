@@ -33,6 +33,7 @@ NeoBundle 'elixir-lang/vim-elixir'
 NeoBundle 'kmnk/vim-unite-giti.git'
 NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'derekwyatt/vim-scala'
+NeoBundle 'ctrlpvim/ctrlp.vim'
 
 call neobundle#end()
 
@@ -132,3 +133,6 @@ let g:indent_guides_enable_on_vim_startup = 1
 let g:auto_save = 1
 let g:auto_save_in_insert_mode = 0
 let g:auto_save_silent = 1
+
+" ---vim-jsx---
+let g:jsx_ext_required = 0

@@ -1,4 +1,5 @@
 syntax on " シンタックスハイライトを有効にする
+set nocompatible " vi互換を無くす
 set modifiable
 set write
 set laststatus=2 " 編集中のファイル名を常に表示

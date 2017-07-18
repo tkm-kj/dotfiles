@@ -1,6 +1,7 @@
 #!/bin/sh
 DOT_FILES=(.vim .gvimrc .xvimrc .vimrc .vimrc.setting.vim .vimrc.plugin.vim ~/.vimrc.keymap.vim .zshrc .tmux.conf .gitconfig .pryrc)
 BREW_FORMULAS=(
+ghq
 git
 mysql
 peco
