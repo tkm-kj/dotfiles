@@ -8,7 +8,6 @@ peco
 phantomjs
 postgresql
 rbenv
-reattach-to-user-namespace
 redis
 ruby-build
 the_silver_searcher
@@ -17,7 +16,7 @@ tree
 vim
 vimpager
 wget
-zsh
+fish
 )
 
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" # brew入れる
@@ -31,6 +30,8 @@ for file in ${DOT_FILES[@]}
 do
   ln -fs $HOME/dotfiles/$file $HOME/$file
 done
+ln -fs $HOME/dotfiles/config.fish $HOME/.config/fish/config.fish
+
 mkdir ~/.vim/bundle
 git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 vim -c ':NeoBundleInstall'
@@ -39,6 +40,6 @@ git clone https://gist.github.com/04872df9d66962082dfc2a71113c1966.git ~/.vim/bu
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 sh ~/.tmux/plugins/tpm/scripts/install_plugins.sh
 
-chsh -s /bin/zsh
+chsh -s `which fish`
 
 echo 'Finish!'
