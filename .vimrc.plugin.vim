@@ -9,7 +9,6 @@ NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/unite-outline'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'Shougo/neocomplcache.vim'
-NeoBundle 'Shougo/vimproc.vim', 'ver.9.2'
 NeoBundle 'kana/vim-smartinput'
 NeoBundle 'cohama/vim-smartinput-endwise'
 NeoBundle 'tpope/vim-surround'
@@ -35,6 +34,16 @@ NeoBundle 'kmnk/vim-unite-giti.git'
 NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'derekwyatt/vim-scala'
 NeoBundle 'ctrlpvim/ctrlp.vim'
+NeoBundle 'editorconfig/editorconfig-vim'
+NeoBundle 'Shougo/vimproc.vim', {
+\ 'build' : {
+\     'windows' : 'tools\\update-dll-mingw',
+\     'cygwin' : 'make -f make_cygwin.mak',
+\     'mac' : 'make',
+\     'linux' : 'make',
+\     'unix' : 'gmake',
+\    },
+\ }
 
 call neobundle#end()
 
@@ -137,3 +146,6 @@ let g:auto_save_silent = 1
 
 " ---vim-jsx---
 let g:jsx_ext_required = 0
+
+" SQL
+let g:omni_sql_no_default_maps = 1
