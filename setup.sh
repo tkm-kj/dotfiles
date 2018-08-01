@@ -40,6 +40,4 @@ git clone https://gist.github.com/04872df9d66962082dfc2a71113c1966.git ~/.vim/bu
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 sh ~/.tmux/plugins/tpm/scripts/install_plugins.sh
 
-chsh -s `which fish`
-
 echo 'Finish!'
