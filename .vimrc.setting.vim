@@ -79,6 +79,5 @@ au BufNewFile,BufRead *.go set noexpandtab tabstop=4 shiftwidth=4
 
 " ---見た目---
 colorscheme jellybeans
-set cursorline
 highlight CursorLine cterm=underline
 let loaded_matchparen = 1 " 対応カッコの強調表示解除
