@@ -53,3 +53,7 @@ end
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/tkm_kj/google-cloud-sdk/path.fish.inc' ]; if type source > /dev/null; source '/Users/tkm_kj/google-cloud-sdk/path.fish.inc'; else; . '/Users/tkm_kj/google-cloud-sdk/path.fish.inc'; end; end
 eval (direnv hook fish)
+
+function fish_user_key_bindings
+    bind \cr peco_select_history
+end
