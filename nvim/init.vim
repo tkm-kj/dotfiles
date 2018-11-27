@@ -38,6 +38,15 @@ if dein#load_state('~/.cache/dein')
   call dein#begin('~/.cache/dein')
 
   call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
+  call dein#add('~/.cache/dein/repos/github.com/Shougo/vimproc.vim', {
+        \ 'build': {
+        \     'windows' : 'tools\\update-dll-mingw',
+        \     'cygwin'  : 'make -f make_cygwin.mak',
+        \     'mac'     : 'make -f make_mac.mak',
+        \     'linux'   : 'make',
+        \     'unix'    : 'gmake',
+        \    },
+        \ })
 
   call dein#load_toml(expand('~/.config/nvim') . '/dein.toml', {'lazy': 0})
   call dein#end()
