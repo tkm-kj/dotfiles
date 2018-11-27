@@ -76,10 +76,7 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'jacoborus/tender.vim'
+repo = 'nanotech/jellybeans.vim'
 
 [[plugins]]
 repo = 'itchyny/lightline.vim'
-hook_add = '''
-  let g:lightline = { 'colorscheme': 'tender' }
-'''

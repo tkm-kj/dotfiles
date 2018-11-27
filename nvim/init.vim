@@ -46,7 +46,7 @@ endif
 
 filetype plugin indent on
 syntax enable
-colorscheme tender
+colorscheme jellybeans
 
 " キーバインド
 
