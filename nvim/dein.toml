@@ -95,3 +95,6 @@ repo = 'nanotech/jellybeans.vim'
 
 [[plugins]]
 repo = 'itchyny/lightline.vim'
+
+[[plugins]]
+repo = 'cespare/vim-toml'
