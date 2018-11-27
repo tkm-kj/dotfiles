@@ -22,6 +22,9 @@ set nobackup " バックアップを作らない
 set pastetoggle=<C-^> " pasteモードの切替
 set hlsearch " 検索結果のハイライト
 set termguicolors
+set tabstop=2 " タブを表示するときの幅
+set expandtab " タブ文字挿入"
+set shiftwidth=2 " タブを挿入するときの幅
 
 " dein.vimの設定
 
