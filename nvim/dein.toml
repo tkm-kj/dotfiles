@@ -98,3 +98,6 @@ repo = 'itchyny/lightline.vim'
 
 [[plugins]]
 repo = 'cespare/vim-toml'
+
+[[plugins]]
+repo = 'tomtom/tcomment_vim'
