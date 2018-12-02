@@ -70,4 +70,5 @@ inoremap <C-b> <Left>
 inoremap <C-f> <Right>
 vnoremap $ $h
 noremap <silent> <C-c> :noh<CR>
+noremap <silent> <C-e> :e!<CR>
 nnoremap / /\v
