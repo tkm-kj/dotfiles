@@ -26,6 +26,13 @@ set tabstop=2 " タブを表示するときの幅
 set expandtab " タブ文字挿入"
 set shiftwidth=2 " タブを挿入するときの幅
 
+" コメント行から改行した行をコメントにしないようにする
+augroup auto_comment_off
+  autocmd!
+  autocmd BufEnter * setlocal formatoptions-=r
+  autocmd BufEnter * setlocal formatoptions-=o
+augroup END
+
 " dein.vimの設定
 
 if &compatible
