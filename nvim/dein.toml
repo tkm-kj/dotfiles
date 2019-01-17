@@ -38,9 +38,6 @@ repo = 'Shougo/neomru.vim'
 repo = 'Shougo/neoyank.vim'
 
 [[plugins]]
-repo = 'Shougo/neoyank.vim'
-
-[[plugins]]
 repo = 'Shougo/neocomplcache.vim'
 hook_add = '''
   let g:neocomplcache_enable_at_startup = 1
