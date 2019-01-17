@@ -52,6 +52,7 @@ hook_add = '''
       let g:neocomplcache_keyword_patterns = {}
   endif
   let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+  let g:neocomplcache_force_overwrite_completefunc=1
 '''
 
 [[plugins]]
@@ -121,3 +122,6 @@ repo = 'pangloss/vim-javascript'
 
 [[plugins]]
 repo = 'fatih/vim-go'
+
+[[plugins]]
+repo = 'keith/swift.vim'
