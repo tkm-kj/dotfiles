@@ -125,3 +125,6 @@ repo = 'fatih/vim-go'
 
 [[plugins]]
 repo = 'keith/swift.vim'
+
+[[plugins]]
+repo = 'w0rp/ale'
