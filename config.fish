@@ -49,11 +49,11 @@ function fish_prompt --description 'Write out the prompt'
 
     printf '[%s] %s%s %s(%s)%s [%s] \f\r$ ' (date "+%H:%M:%S") "$__fish_prompt_cwd" "$PWD" "$__fish_color_status" "$stat" "$__fish_color_brown" "$__git_cb"
 end
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/tkm_kj/google-cloud-sdk/path.fish.inc' ]; if type source > /dev/null; source '/Users/tkm_kj/google-cloud-sdk/path.fish.inc'; else; . '/Users/tkm_kj/google-cloud-sdk/path.fish.inc'; end; end
 eval (direnv hook fish)
 
 function fish_user_key_bindings
     bind \cr peco_select_history
 end
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/tkm-kj/path.fish.inc' ]; if type source > /dev/null; source '/Users/tkm-kj/path.fish.inc'; else; . '/Users/tkm-kj/path.fish.inc'; end; end
