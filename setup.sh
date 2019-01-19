@@ -1,5 +1,5 @@
 #!/bin/sh
-DOT_FILES=(.vim .gvimrc .xvimrc .vimrc .vimrc.setting.vim .vimrc.plugin.vim ~/.vimrc.keymap.vim .zshrc .tmux.conf .gitconfig .pryrc)
+DOT_FILES=(.vim .gvimrc .xvimrc .vimrc .vimrc.setting.vim .vimrc.plugin.vim .vimrc.keymap.vim .zshrc .tmux.conf .gitconfig .pryrc)
 BREW_FORMULAS=(
 ghq
 git
@@ -18,6 +18,7 @@ vimpager
 wget
 fish
 neovim
+direnv
 )
 
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" # brew入れる
@@ -34,7 +35,9 @@ for file in ${DOT_FILES[@]}
 do
   ln -fs $HOME/dotfiles/$file $HOME/$file
 done
+mkdir -p $HOME/.config/fish
 ln -fs $HOME/dotfiles/config.fish $HOME/.config/fish/config.fish
+mkdir -p $HOME/.config/nvim
 ln -fs $HOME/dotfiles/nvim/init.vim $HOME/.config/nvim/init.vim
 ln -fs $HOME/dotfiles/nvim/dein.toml $HOME/.config/nvim/dein.toml
 
