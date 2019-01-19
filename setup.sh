@@ -41,7 +41,8 @@ ln -fs $HOME/dotfiles/nvim/dein.toml $HOME/.config/nvim/dein.toml
 mkdir ~/.vim/bundle
 git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 vim -c ':NeoBundleInstall'
-git clone https://gist.github.com/04872df9d66962082dfc2a71113c1966.git ~/.vim/bundle/nerdtree/nerdtree_plugin/grep_menuitem.vim
+
+nvim -c ':call dein#install()'
 
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 sh ~/.tmux/plugins/tpm/scripts/install_plugins.sh
