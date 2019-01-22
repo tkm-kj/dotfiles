@@ -1,5 +1,6 @@
 status --is-interactive; and source (rbenv init -|psub)
 set -x PATH $PATH /usr/local/share/git-core/contrib/diff-highlight
+set -x GOPATH $GOPATH $HOME/dev
 
 alias ap="ansible-playbook"
 alias be="bundle exec"
