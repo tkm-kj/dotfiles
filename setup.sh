@@ -19,6 +19,7 @@ wget
 fish
 neovim
 direnv
+reattach-to-user-namespace
 )
 
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" # brew入れる
