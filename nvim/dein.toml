@@ -128,3 +128,6 @@ repo = 'keith/swift.vim'
 
 [[plugins]]
 repo = 'w0rp/ale'
+
+[[plugins]]
+repo = 'Shougo/vimproc.vim'

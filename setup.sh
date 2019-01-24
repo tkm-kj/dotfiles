@@ -49,6 +49,7 @@ git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 vim -c ':NeoBundleInstall'
 
 nvim -c ':call dein#install()'
+cd $HOME/.cache/dein/repos/github.com/Shougo/vimproc.vim && make
 
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 sh ~/.tmux/plugins/tpm/scripts/install_plugins.sh
