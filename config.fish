@@ -1,5 +1,5 @@
 status --is-interactive; and source (rbenv init -|psub)
-set -x PATH $PATH /usr/local/share/git-core/contrib/diff-highlight
+set -x PATH $PATH /usr/local/share/git-core/contrib/diff-highlight $HOME/google-cloud-sdk/bin
 set -x GOPATH $GOPATH $HOME/dev
 
 alias ap="ansible-playbook"
@@ -71,6 +71,3 @@ end
 function fish_user_key_bindings
     bind \cr peco_select_history
 end
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/tkm-kj/path.fish.inc' ]; if type source > /dev/null; source '/Users/tkm-kj/path.fish.inc'; else; . '/Users/tkm-kj/path.fish.inc'; end; end
