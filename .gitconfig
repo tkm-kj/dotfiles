@@ -44,12 +44,12 @@
   sp = stash pop
   st = status
 [pager]
-	log = diff-highlight | less
-	show = diff-highlight | less
-	diff = diff-highlight | less
+  log = diff-highlight | less
+  show = diff-highlight | less
+  diff = diff-highlight | less
 [diff]
-	compactionHeuristic = true
+  compactionHeuristic = true
 [ghq]
-  root = ~/src
+  root = ~/dev/src
 [fetch]
   prune = true
