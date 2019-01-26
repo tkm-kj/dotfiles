@@ -51,6 +51,7 @@ function fish_prompt --description 'Write out the prompt'
     printf '[%s] %s%s %s(%s)%s [%s] \f\r$ ' (date "+%H:%M:%S") "$__fish_prompt_cwd" "$PWD" "$__fish_color_status" "$stat" "$__fish_color_brown" "$__git_cb"
 end
 eval (direnv hook fish)
+eval (anyenv init -)
 
 function peco_select_history
   if test (count $argv) = 0

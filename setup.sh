@@ -22,6 +22,7 @@ direnv
 reattach-to-user-namespace
 go
 dep
+anyenv
 )
 
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" # brew入れる
