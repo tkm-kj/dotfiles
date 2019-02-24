@@ -13,11 +13,9 @@ export EDITOR=/usr/local/bin/vim
 export PAGER=/usr/local/bin/vimpager
 export MANPAGER=/usr/local/bin/vimpager
 
-export GIT=/usr/local/bin/git
-export PATH=$PATH:/usr/local/share/git-core/contrib/diff-highlight
-export GOROOT=/usr/local/go
-export GOPATH=$HOME/go
-export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+export GOPATH=$HOME/dev
+export GO111MODULE=on
+export PATH=$PATH:$GOPATH/bin:$PATH:/usr/local/share/git-core/contrib/diff-highlight:$HOME/google-cloud-sdk/bin
 export PKG_CONFIG_PATH=/opt/ImageMagick/lib/pkgconfig
 
 # -------------------------------------
@@ -84,8 +82,6 @@ path=(
   $path
 )
 
-export PGDATA=/usr/local/var/postgres
-
 # -------------------------------------
 # # プロンプト
 # # -------------------------------------
@@ -128,20 +124,6 @@ PROMPT+="%F{130}[%~]%f"
 PROMPT+="\$(vcs_prompt_info)"
 PROMPT+="%% "
 
-rbenv_version () {
-  if [[ "`rbenv version | grep '.rbenv/version'`" = "" ]];then
-    if [[ "`rbenv version | grep 'RBENV_VERSION'`" = "" ]];then
-      local setting="L"
-    else
-      local setting="V"
-    fi
-  else
-    local setting="G"
-  fi
-  RPROMPT="%F{120}[`rbenv version | cut -f1 -d' '`($setting)]%f"
-}
-add-zsh-hook precmd rbenv_version
-
 # -------------------------------------
 # # エイリアス
 # # -------------------------------------
@@ -161,6 +143,8 @@ alias ct='ctags --langmap=RUBY:.rb --exclude="*.js"  --exclude=".git*" -R .'
 alias diff="diff -u"
 alias g="git"
 alias gc="gcloud"
+alias kb="kubectl"
+alias ke="kubectl exec -it"
 alias ll="ls -l"
 alias p="pwd"
 alias rb="ruby"
@@ -188,38 +172,20 @@ bindkey -e
 # # その他
 # # -------------------------------------
 #
-# # cdしたあとで、自動的に ls する
-function chpwd() { pwd; ls -1 }
 
 # コマンド履歴検索
-autoload history-search-end
-zle -N history-beginning-search-backward-end history-search-end
-zle -N history-beginning-search-forward-end history-search-end
-# bindkey "^j" history-beginning-search-backward-end
-# bindkey "^k" history-beginning-search-forward-end
-# 補完候補を詰めて表示する
-setopt list_packed
+function peco-history-selection() {
+    BUFFER=`history -n 1 | tail -r  | awk '!a[$0]++' | peco`
+    CURSOR=$#BUFFER
+    zle reset-prompt
+}
+
+zle -N peco-history-selection
+bindkey '^R' peco-history-selection
 
 if [ -f `brew --prefix`/etc/autojump ]; then
 	  . `brew --prefix`/etc/autojump
 fi
 eval "$(rbenv init -)"
 eval "$(direnv hook zsh)"
-export EDITOR=vi
-export PATH="$HOME/.embulk/bin:$PATH"
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f /Users/tkm_kj/Downloads/google-cloud-sdk/path.zsh.inc ]; then
-  source '/Users/tkm_kj/Downloads/google-cloud-sdk/path.zsh.inc'
-fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f /Users/tkm_kj/Downloads/google-cloud-sdk/completion.zsh.inc ]; then
-  source '/Users/tkm_kj/Downloads/google-cloud-sdk/completion.zsh.inc'
-fi
-
-# added by travis gem
-[ -f /Users/tkm_kj/.travis/travis.sh ] && source /Users/tkm_kj/.travis/travis.sh
-
-export PATH="$HOME/.yarn/bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
