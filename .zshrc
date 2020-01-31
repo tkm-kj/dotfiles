@@ -14,8 +14,9 @@ export PAGER=/usr/local/bin/vimpager
 export MANPAGER=/usr/local/bin/vimpager
 
 export GOPATH=$HOME/dev
+export GOROOT=/usr/local/Cellar/go/1.12/libexec
 export GO111MODULE=on
-export PATH=$PATH:$GOPATH/bin:$PATH:/usr/local/share/git-core/contrib/diff-highlight:$HOME/google-cloud-sdk/bin
+export PATH=$PATH:$GOPATH/bin:$PATH:/usr/local/share/git-core/contrib/diff-highlight:$HOME/google-cloud-sdk/bin:$HOME/.nodebrew/current/bin:$PATH:~/.rbenv/shims:~/.nodenv/bin:/usr/local/bin:/usr/bin:/bin
 export PKG_CONFIG_PATH=/opt/ImageMagick/lib/pkgconfig
 
 # -------------------------------------
@@ -140,20 +141,28 @@ alias brs="./bin/rails s"
 alias bsr="./bin/spring rspec"
 alias bu="bundle update"
 alias ct='ctags --langmap=RUBY:.rb --exclude="*.js"  --exclude=".git*" -R .'
+alias d="docker"
+alias da="docker attach"
+alias dc="docker-compose"
+alias dp="docker ps"
 alias diff="diff -u"
 alias g="git"
 alias gc="gcloud"
+alias ka="kubectl apply -f"
+alias kall="kubectl get all -o wide"
 alias kb="kubectl"
+alias kc="kubectx"
+alias kd="kubectl describe"
 alias ke="kubectl exec -it"
+alias kn="kubens"
+alias lg="lazygit"
 alias ll="ls -l"
 alias p="pwd"
 alias rb="ruby"
 alias sz="source $HOME/.zshrc"
 alias tm="tmux -2"
 alias tree="tree -NC" # N: 文字化け対策, C:色をつける
-alias v='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 alias va="vagrant"
-alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 alias -g cu="cucumber"
 alias -g he="heroku"
 alias -g mas="master"
@@ -183,9 +192,21 @@ function peco-history-selection() {
 zle -N peco-history-selection
 bindkey '^R' peco-history-selection
 
+function peco-src () {
+  local selected_dir=$(ghq list -p | peco --query "$LBUFFER")
+  if [ -n "$selected_dir" ]; then
+    BUFFER="cd ${selected_dir}"
+    zle accept-line
+  fi
+  zle clear-screen
+}
+zle -N peco-src
+bindkey '^]' peco-src
+
 if [ -f `brew --prefix`/etc/autojump ]; then
 	  . `brew --prefix`/etc/autojump
 fi
 eval "$(rbenv init -)"
+eval "$(nodenv init -)"
 eval "$(direnv hook zsh)"
 

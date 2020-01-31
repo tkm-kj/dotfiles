@@ -1,6 +1,6 @@
 status --is-interactive; and source (rbenv init -|psub)
-set -x PATH $PATH /usr/local/share/git-core/contrib/diff-highlight $HOME/google-cloud-sdk/bin
 set -x GOPATH $GOPATH $HOME/dev
+set -x PATH $PATH $GOPATH/bin /usr/local/share/git-core/contrib/diff-highlight $HOME/google-cloud-sdk/bin
 
 alias ap="ansible-playbook"
 alias be="bundle exec"
