@@ -14,9 +14,9 @@ export PAGER=/usr/local/bin/vimpager
 export MANPAGER=/usr/local/bin/vimpager
 
 export GOPATH=$HOME/dev
-export GOROOT=/usr/local/Cellar/go/1.12/libexec
+export GOROOT=""
 export GO111MODULE=on
-export PATH=$PATH:$GOPATH/bin:$PATH:/usr/local/share/git-core/contrib/diff-highlight:$HOME/google-cloud-sdk/bin:$HOME/.nodebrew/current/bin:$PATH:~/.rbenv/shims:~/.nodenv/bin:/usr/local/bin:/usr/bin:/bin
+export PATH=$(pyenv root)/shims:$PATH:$GOPATH/bin:$PATH:/usr/local/share/git-core/contrib/diff-highlight:$HOME/google-cloud-sdk/bin:$HOME/.nodebrew/current/bin:$PATH:~/.rbenv/shims:~/.nodenv/bin:/usr/local/bin:/usr/bin:/bin
 export PKG_CONFIG_PATH=/opt/ImageMagick/lib/pkgconfig
 
 # -------------------------------------
@@ -208,5 +208,5 @@ if [ -f `brew --prefix`/etc/autojump ]; then
 fi
 eval "$(rbenv init -)"
 eval "$(nodenv init -)"
+eval "$(pyenv init -)"
 eval "$(direnv hook zsh)"
-

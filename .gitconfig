@@ -4,7 +4,7 @@
 [color]
   ui = true
 [core]
-  editor = vim
+  editor = nvim
   excludesfile = ~/.gitignore
   quotepath    = false
 [push]
@@ -36,6 +36,7 @@
   rba = rebase --abort
   rbc = rebase --continue
   rbm = rebase master
+  re = restore
   rfl = reflog
   rs = reset
   sh = show
@@ -43,6 +44,7 @@
   sl = stash list
   sp = stash pop
   st = status
+  sw = switch
 [pager]
   log = diff-highlight | less
   show = diff-highlight | less
