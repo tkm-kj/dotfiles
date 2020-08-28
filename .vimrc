@@ -4,7 +4,7 @@ filetype plugin indent off
 
 source ~/.vimrc.setting.vim
 
-source ~/.vimrc.plugin.vim
+" source ~/.vimrc.plugin.vim
 
 source ~/.vimrc.keymap.vim
 
