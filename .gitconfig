@@ -9,6 +9,8 @@
   quotepath    = false
 [push]
   default = simple
+[pull]
+  ff = only
 [alias]
   a = add
   ap = add -p
