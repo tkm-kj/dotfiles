@@ -23,6 +23,8 @@ reattach-to-user-namespace
 go
 dep
 anyenv
+pyenv
+nodenv
 )
 
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" # brew入れる
@@ -45,12 +47,12 @@ mkdir -p $HOME/.config/nvim
 ln -fs $HOME/dotfiles/nvim/init.vim $HOME/.config/nvim/init.vim
 ln -fs $HOME/dotfiles/nvim/dein.toml $HOME/.config/nvim/dein.toml
 
-mkdir ~/.vim/bundle
-git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
-vim -c ':NeoBundleInstall'
-
-nvim -c ':call dein#install()'
-cd $HOME/.cache/dein/repos/github.com/Shougo/vimproc.vim && make
+# mkdir ~/.vim/bundle
+# git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
+# vim -c ':NeoBundleInstall'
+#
+# nvim -c ':call dein#install()'
+# cd $HOME/.cache/dein/repos/github.com/Shougo/vimproc.vim && make
 
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 sh ~/.tmux/plugins/tpm/scripts/install_plugins.sh
