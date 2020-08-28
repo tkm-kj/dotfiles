@@ -4,7 +4,7 @@
 [color]
   ui = true
 [core]
-  editor = nvim
+  editor = vim
   excludesfile = ~/.gitignore
   quotepath    = false
 [push]
