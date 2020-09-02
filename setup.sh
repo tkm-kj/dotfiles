@@ -20,7 +20,6 @@ fish
 neovim
 direnv
 reattach-to-user-namespace
-go
 dep
 anyenv
 pyenv

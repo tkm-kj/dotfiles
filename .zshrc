@@ -13,10 +13,10 @@ export EDITOR=/usr/local/bin/vim
 export PAGER=/usr/local/bin/vimpager
 export MANPAGER=/usr/local/bin/vimpager
 
+export PATH=$(pyenv root)/shims:$PATH:$GOPATH/bin:$PATH:/usr/local/share/git-core/contrib/diff-highlight:$HOME/google-cloud-sdk/bin:$HOME/.nodebrew/current/bin:$PATH:~/.rbenv/shims:$HOME/.goenv/bin:~/.nodenv/bin:/usr/local/bin:/usr/bin:/bin
 export GOPATH=$HOME/dev
 export GOROOT=""
 export GO111MODULE=on
-export PATH=$(pyenv root)/shims:$PATH:$GOPATH/bin:$PATH:/usr/local/share/git-core/contrib/diff-highlight:$HOME/google-cloud-sdk/bin:$HOME/.nodebrew/current/bin:$PATH:~/.rbenv/shims:~/.nodenv/bin:/usr/local/bin:/usr/bin:/bin
 export PKG_CONFIG_PATH=/opt/ImageMagick/lib/pkgconfig
 
 # -------------------------------------
@@ -209,4 +209,5 @@ fi
 eval "$(rbenv init -)"
 eval "$(nodenv init -)"
 eval "$(pyenv init -)"
+eval "$(goenv init -)"
 eval "$(direnv hook zsh)"
