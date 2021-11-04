@@ -15,9 +15,6 @@ export MANPAGER=/usr/local/bin/vimpager
 
 export PATH=$(pyenv root)/shims:$PATH:$GOPATH/bin:$PATH:/usr/local/share/git-core/contrib/diff-highlight:$HOME/google-cloud-sdk/bin:$HOME/.nodebrew/current/bin:$PATH:~/.rbenv/shims:$HOME/.goenv/bin:~/.nodenv/bin:/usr/local/bin:/usr/bin:/bin
 export GOPATH=$HOME/dev
-export GOROOT=""
-export GO111MODULE=on
-export PKG_CONFIG_PATH=/opt/ImageMagick/lib/pkgconfig
 
 # -------------------------------------
 # # zshのオプション
