@@ -7,6 +7,7 @@
   editor = vim
   excludesfile = ~/.gitignore
   quotepath    = false
+  pager = less
 [push]
   default = simple
 [pull]
@@ -47,10 +48,6 @@
   sp = stash pop
   st = status
   sw = switch
-[pager]
-  log = diff-highlight | less
-  show = diff-highlight | less
-  diff = diff-highlight | less
 [diff]
   compactionHeuristic = true
 [ghq]
