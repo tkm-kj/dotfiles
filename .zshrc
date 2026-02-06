@@ -9,11 +9,7 @@ export LC_ALL=en_US.UTF-8
 # エディタ
 export EDITOR=/usr/local/bin/vim
 
-# ページャ
-export PAGER=/usr/local/bin/vimpager
-export MANPAGER=/usr/local/bin/vimpager
-
-export PATH=$(pyenv root)/shims:$PATH:$GOPATH/bin:$PATH:/usr/local/share/git-core/contrib/diff-highlight:$HOME/google-cloud-sdk/bin:$HOME/.nodebrew/current/bin:$PATH:~/.rbenv/shims:$HOME/.goenv/bin:~/.nodenv/bin:/usr/local/bin:/usr/bin:/bin
+export PATH=$PATH:$GOPATH/bin:/usr/local/bin:$HOME/.local/bin
 export GOPATH=$HOME/dev
 
 # -------------------------------------
@@ -55,16 +51,6 @@ setopt auto_cd
 # 同じディレクトリは追加しない
 setopt pushd_ignore_dups
 
-# #--- zsh 用の設定 ---
-# . /usr/local/etc/autojump.zsh
-
-# #--- cd 時の仕掛け ---
-# function precmd () {
-#     pwd=`pwd`
-#     echo "[^[[35m$pwd^[[m]"
-#     autojump -a $pwd
-#     echo $pwd > ~/.curdir
-# }
 
 # -------------------------------------
 # # パス
@@ -126,31 +112,12 @@ PROMPT+="%% "
 # # エイリアス
 # # -------------------------------------
 
-alias ap="ansible-playbook"
-alias be="bundle exec"
-alias bi="bundle install"
-alias bl="bundle list"
-alias bo="bundle open"
-alias bod="bundle outdated"
-alias bu="bundle update"
-alias da="docker attach"
-alias dc="docker-compose"
+alias dc="docker compose"
 alias dp="docker ps"
 alias g="git"
-alias gc="gcloud"
-alias ka="kubectl apply -f"
-alias kall="kubectl get all -o wide"
-alias kb="kubectl"
-alias kc="kubectx"
-alias kd="kubectl describe"
-alias ke="kubectl exec -it"
-alias kl="kubectl logs -f"
-alias kn="kubens"
-alias lg="lazygit"
 alias ll="ls -l"
 alias sz="source $HOME/.zshrc"
-alias tm="tmux -2"
-alias va="vagrant"
+alias tm="tmux"
 
 # -------------------------------------
 # # キーバインド
@@ -187,8 +154,14 @@ bindkey '^]' peco-src
 if [ -f `brew --prefix`/etc/autojump ]; then
 	  . `brew --prefix`/etc/autojump
 fi
-eval "$(rbenv init -)"
-eval "$(nodenv init -)"
-eval "$(pyenv init -)"
-eval "$(goenv init -)"
 eval "$(direnv hook zsh)"
+
+export AWS_SESSION_TOKEN_TTL=24h
+
+eval "$(/Users/tkm-kj/.local/bin/mise activate zsh)"
+
+export PNPM_HOME="/Users/tkm-kj/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
